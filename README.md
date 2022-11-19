@@ -30,4 +30,5 @@ docker-compose down
 ## Authors
 
 - [@albertoge2021](https://www.github.com/albertoge2021)
+- [@TimBluesWin](https://github.com/TimBluesWin)
 
