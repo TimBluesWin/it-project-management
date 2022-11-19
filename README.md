@@ -10,7 +10,7 @@ Just check: https://docs.docker.com/compose/install/
     
 ## Deployment
 
-Go to *django_project* folder.
+Go to root folder (ITPM), then execute the following:
 
 ```
 docker-compose up -d --build
@@ -31,4 +31,5 @@ docker-compose down
 
 - [@albertoge2021](https://www.github.com/albertoge2021)
 - [@TimBluesWin](https://github.com/TimBluesWin)
+- 
 
