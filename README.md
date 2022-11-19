@@ -31,5 +31,6 @@ docker-compose down
 
 - [@albertoge2021](https://www.github.com/albertoge2021)
 - [@TimBluesWin](https://github.com/TimBluesWin)
-- 
+- [@ChriHase](https://github.com/ChriHase)
+- [@marcotoccoli](https://github.com/marcotoccoli)
 
