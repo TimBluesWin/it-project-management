@@ -1,11 +1,11 @@
 version: "3.9"
 
 services:
-  web:
-    build: .
-    command: python /code/manage.py runserver 0.0.0.0:8000
+  api:
+    build: ./django_project
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - .:/django_project
     ports:
       - 8000:8000
     depends_on:
@@ -16,6 +16,13 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
+  web:
+    build: ./front-end
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend
+    command: bash -c "npm start"
 
 volumes:
   postgres_data:
