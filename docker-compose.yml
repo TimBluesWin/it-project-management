@@ -21,7 +21,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/frontend
+      - ./front-end:/front-end
     command: bash -c "npm start"
 
 volumes:
