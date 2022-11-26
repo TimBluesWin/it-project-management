@@ -15,6 +15,16 @@ Go to root folder (ITPM), then execute the following:
 pipenv shell
 ```
 
+Run migrations
+
+
+```
+python manage.py makemigrations dashboardApi
+python managy.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
+
 ## (Possible) Future implementation
 
  - [Frontend React](https://github.com/coreui/coreui-free-react-admin-template)
