@@ -2,23 +2,17 @@
 # ITPM
 
 In the repository, we develop the project for ITPM 2022-2023 for the University of Innsbruck.
+
 ## Installation
 
-For installing the project you must have **docker** and **docker-compose** installed:
-
-Just check: https://docs.docker.com/compose/install/
+Guide used for configuration: https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react
     
 ## Deployment
 
 Go to root folder (ITPM), then execute the following:
 
 ```
-docker-compose up -d --build
-```
-
-For stopping the containers:
-```
-docker-compose down
+pipenv shell
 ```
 
 ## (Possible) Future implementation
