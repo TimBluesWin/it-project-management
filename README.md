@@ -25,6 +25,12 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+Setup the data into the DB
+
+```
+python setupData.py
+```
+
 ## (Possible) Future implementation
 
  - [Frontend React](https://github.com/coreui/coreui-free-react-admin-template)
