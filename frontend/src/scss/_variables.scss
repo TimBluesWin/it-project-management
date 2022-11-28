@@ -6,7 +6,7 @@
 
 // scss-docs-start gray-color-variables
 // $white:     #fff !default;
-// $gray-base: #3c4b64 !default;
+$blue-base: #beffff !default;
 // $gray-100:  #ebedef !default;
 // $gray-200:  #d8dbe0 !default;
 // $gray-300:  #c4c9d0 !default;
@@ -16,7 +16,7 @@
 // $gray-700:  #768192 !default;
 // $gray-800:  #636f83 !default;
 // $gray-900:  #4f5d73 !default;
-// $black:     #000015 !default;
+$black:     #000015 !default;
 // scss-docs-end gray-color-variables
 
 // fusv-disable
@@ -39,9 +39,9 @@
 // $medium-emphasis:          rgba(shift-color($gray-base, +26), .681) !default;
 // $disabled:                 rgba(shift-color($gray-base, +26), .38) !default;
 
-// $high-emphasis-inverse:    rgba($white, .87) !default;
-// $medium-emphasis-inverse:  rgba($white, .6) !default;
-// $disabled-inverse:         rgba($white, .38) !default;
+$high-emphasis-inverse:    rgba($black, .87) !default;
+$medium-emphasis-inverse:  rgba($black, .6) !default;
+$disabled-inverse:         rgba($black, .38) !default;
 
 // scss-docs-start color-variables
 // $blue:    #0d6efd !default;
@@ -1640,7 +1640,7 @@
 // $sidebar-padding-y:                        0 !default;
 // $sidebar-padding-x:                        0 !default;
 // $sidebar-color:                            $high-emphasis-inverse !default;
-// $sidebar-bg:                               $gray-base !default;
+$sidebar-bg:                               $blue-base !default;
 // $sidebar-border-width:                     0 !default;
 // $sidebar-border-color:                     transparent !default;
 // $sidebar-transition:                       margin-left .15s, margin-right .15s, box-shadow .075s, transform .15s, width .15s, z-index 0s ease .15s !default;
