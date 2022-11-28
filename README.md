@@ -9,10 +9,23 @@ Guide used for configuration: https://www.digitalocean.com/community/tutorials/b
     
 ## Deployment
 
+Install required packages
+
+First, run the following:
+```
+pip install pipenv
+```
+
 Go to root folder (ITPM), then execute the following:
 
 ```
 pipenv shell
+```
+
+Next, execute the following:
+```
+cd backend
+pip install -r requirements.txt
 ```
 
 Run migrations
@@ -20,7 +33,7 @@ Run migrations
 
 ```
 python manage.py makemigrations dashboardApi
-python managy.py migrate
+python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 ```
