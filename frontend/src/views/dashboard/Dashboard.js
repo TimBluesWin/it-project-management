@@ -1,26 +1,7 @@
 import React from 'react'
 import { Chart } from 'react-google-charts'
 
-import {
-  CAvatar,
-  CButton,
-  CButtonGroup,
-  CCard,
-  CCardBody,
-  CCardFooter,
-  CCardHeader,
-  CCol,
-  CProgress,
-  CRow,
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { CChart } from '@coreui/react-chartjs'
+import { CCol, CRow } from '@coreui/react'
 
 export const dataActiveComputers = [
   ['Active / Inactive Computers', 'Number'],
@@ -72,6 +53,10 @@ export const optionsModelIssues = {
     title: 'Number of Issues',
   },
   backgroundColor: 'transparent',
+  titleTextStyle: {
+    fontSize: 25,
+    bold: true,
+  },
 }
 
 export const dataAverageLifetime = [
@@ -90,6 +75,10 @@ export const optionsAverageLifetime = {
     title: 'Lifetime (years)',
   },
   backgroundColor: 'transparent',
+  titleTextStyle: {
+    fontSize: 25,
+    bold: true,
+  },
 }
 
 const Dashboard = () => {
