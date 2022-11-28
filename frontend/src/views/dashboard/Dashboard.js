@@ -39,6 +39,59 @@ export const optionsActiveComputers = {
   },
 }
 
+export const dataNotWorkingModels = [
+  ['Models', 'Number'],
+  ['Model 1', 4],
+  ['Model 2', 2],
+  ['Model 2', 3],
+]
+
+export const optionsNotWorkingModels = {
+  title: 'Not Working Models',
+  is3D: false,
+  backgroundColor: 'transparent',
+  titleTextStyle: {
+    fontSize: 25,
+    bold: true,
+  },
+}
+
+export const dataModelIssues = [
+  ['Model', 'Issues'],
+  ['Brand 1', 5], // RGB value
+  ['Brand 2', 3], // English color name
+  ['Brand 3', 6],
+]
+
+export const optionsModelIssues = {
+  title: 'Number of Issues by model',
+  hAxis: {
+    title: 'Model',
+  },
+  vAxis: {
+    title: 'Number of Issues',
+  },
+  backgroundColor: 'transparent',
+}
+
+export const dataAverageLifetime = [
+  ['Model', 'Lifetime'],
+  ['Brand 1', 5], // RGB value
+  ['Brand 2', 3], // English color name
+  ['Brand 3', 6],
+]
+
+export const optionsAverageLifetime = {
+  title: 'Average Lifetime In Years',
+  hAxis: {
+    title: 'Model',
+  },
+  vAxis: {
+    title: 'Lifetime (years)',
+  },
+  backgroundColor: 'transparent',
+}
+
 const Dashboard = () => {
   return (
     <>
@@ -53,15 +106,33 @@ const Dashboard = () => {
           />
         </CCol>
         <CCol md="6">
-          <p>Lorem Ipsum</p>
+          <Chart
+            chartType="PieChart"
+            width="100%"
+            height="400px"
+            data={dataNotWorkingModels}
+            options={optionsNotWorkingModels}
+          />
         </CCol>
       </CRow>
       <CRow>
         <CCol md="6">
-          <p>Lorem Ipsum</p>
+          <Chart
+            chartType="ColumnChart"
+            width="100%"
+            height="400px"
+            data={dataModelIssues}
+            options={optionsModelIssues}
+          />
         </CCol>
         <CCol md="6">
-          <p>Lorem Ipsum</p>
+          <Chart
+            chartType="ColumnChart"
+            width="100%"
+            height="400px"
+            data={dataAverageLifetime}
+            options={optionsAverageLifetime}
+          />
         </CCol>
       </CRow>
     </>
