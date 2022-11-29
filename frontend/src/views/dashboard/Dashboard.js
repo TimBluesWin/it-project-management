@@ -3,6 +3,8 @@ import { Chart } from 'react-google-charts'
 
 import { CCol, CRow } from '@coreui/react'
 
+import { FetchLifecycle } from 'src/components/FetchFromAPI'
+
 export const dataActiveComputers = [
   ['Active / Inactive Computers', 'Number'],
   ['Active', 11],
@@ -86,13 +88,7 @@ const Dashboard = () => {
     <>
       <CRow>
         <CCol md="6">
-          <Chart
-            chartType="PieChart"
-            width="100%"
-            height="400px"
-            data={dataActiveComputers}
-            options={optionsActiveComputers}
-          />
+          <FetchLifecycle />
         </CCol>
         <CCol md="6">
           <Chart
