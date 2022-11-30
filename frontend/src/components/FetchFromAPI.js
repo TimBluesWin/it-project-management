@@ -76,7 +76,7 @@ export function FetchLifetime() {
       )
   }, [])
   const optionsAverageLifetime = {
-    title: 'Average Lifetime In Years',
+    title: 'Average Lifetime In Years (Top 5 models)',
     hAxis: {
       title: 'Model',
     },
@@ -140,7 +140,7 @@ export function FetchIssues() {
       )
   }, [])
   const optionsModelIssues = {
-    title: 'Number of Issues by model',
+    title: 'Top 5 Number of Issues by model',
     hAxis: {
       title: 'Model',
     },
