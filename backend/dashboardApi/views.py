@@ -42,6 +42,11 @@ class LifetimeView(ThroughAPIBaseView):
         words = get_lifetime()
         return JsonResponse(words, safe=False)
 
+class LifetimeTopFiveView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_lifetime(5)
+        return JsonResponse(words, safe=False)
+
 class IncidentView(ThroughAPIBaseView):
     def get(self, request):
         words = get_incident()
