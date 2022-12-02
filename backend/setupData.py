@@ -18,7 +18,7 @@ def main():
                 new_install=None
             try:
                 Computer.objects.create(
-                        id = row[0], deployment_state = row[1],
+                        name = row[0], deployment_state = row[1],
                         incident_state = row[2],
                         vendor = row[3],
                         model = row[4],
