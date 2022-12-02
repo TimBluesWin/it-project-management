@@ -10,12 +10,14 @@ class LifetimeAPI():
     def __init__(self):
         super().__init__()
     
-    def search(self):
+    def search(self, limit=None):
         today = datetime.datetime.now().strftime ("%Y-%m-%d")
-        qs = Computer.objects.exclude(install__isnull=True).values('vendor', 'model').order_by('vendor').annotate(avg_life=Avg(F('install') - (today), output_field=fields.TextField(), function='ABS'))
+        qs = Computer.objects.exclude(install__isnull=True).values('vendor', 'model').annotate(avg_life=Avg(F('install') - (today), output_field=fields.TextField(), function='ABS')).order_by('-avg_life')
+        if limit is not None:
+            qs = qs[:limit]
         serialized_q = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return serialized_q
 
-def get_lifetime():
+def get_lifetime(limit=None):
     api = LifetimeAPI()
-    return api.search()
+    return api.search(limit)

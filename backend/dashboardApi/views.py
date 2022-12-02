@@ -10,6 +10,7 @@ from .services.operationalratio import get_ratio
 from .services.average_lifetime import get_lifetime
 from .services.incident import get_incident
 from .services.incident import get_most_incident
+from .services.incident import get_not_working
 
 class ThroughAPIBaseView(views.APIView):
     response_viewset = None
@@ -42,6 +43,11 @@ class LifetimeView(ThroughAPIBaseView):
         words = get_lifetime()
         return JsonResponse(words, safe=False)
 
+class LifetimeTopFiveView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_lifetime(5)
+        return JsonResponse(words, safe=False)
+
 class IncidentView(ThroughAPIBaseView):
     def get(self, request):
         words = get_incident()
@@ -50,4 +56,9 @@ class IncidentView(ThroughAPIBaseView):
 class MostIncidentView(ThroughAPIBaseView):
     def get(self, request):
         words = get_most_incident()
+        return JsonResponse(words, safe=False)
+
+class NotWorkingView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_not_working()
         return JsonResponse(words, safe=False)
