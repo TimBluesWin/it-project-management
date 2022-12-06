@@ -25,6 +25,7 @@ pipenv shell
 Next, execute the following:
 ```
 cd backend
+export DJANGO_SETTINGS_MODULE=backend.settings
 pip install -r requirements.txt
 ```
 
