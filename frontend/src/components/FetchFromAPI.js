@@ -96,8 +96,7 @@ export function FetchLifetime() {
 
   let finalDataLifetime = [['Model', 'Lifetime']]
   for (let i = 0; i < dataLifetime.length; i++) {
-    let brandAndModel = dataLifetime[i].vendor + ' - ' + dataLifetime[i].model
-    console.log(dataLifetime[i])
+    let brandAndModel = dataLifetime[i].vendor
     let averageLifetime = parseInt(dataLifetime[i].avg_life)
     let brandLifetime = new Array(brandAndModel, averageLifetime)
     finalDataLifetime.push(brandLifetime)
@@ -156,7 +155,7 @@ export function FetchIssues() {
 
   let finalDataIssues = [['Model', 'Issues']]
   for (let i = 0; i < dataIssues.length; i++) {
-    let brandAndModel = dataIssues[i].vendor + ' - ' + dataIssues[i].model
+    let brandAndModel = dataIssues[i].vendor
     let issues = parseInt(dataIssues[i].dcount)
     let brandIssues = new Array(brandAndModel, issues)
     finalDataIssues.push(brandIssues)
@@ -210,7 +209,7 @@ export function FetchNotWorking() {
 
   let finalDataNotWorking = [['Models', 'Number']]
   for (let i = 0; i < dataNotWorking.length; i++) {
-    let brandAndModel = dataNotWorking[i].vendor + ' - ' + dataNotWorking[i].model
+    let brandAndModel = dataNotWorking[i].vendor
     let numberNotWorking = parseInt(dataNotWorking[i].dcount)
     let brandNotWorking = new Array(brandAndModel, numberNotWorking)
     finalDataNotWorking.push(brandNotWorking)

@@ -15,12 +15,12 @@ class OperationalRatioAPI():
         return qs_json
 
     def most_incident(self):
-        qs = Computer.objects.filter(incident_state = "Incident").values('vendor', 'model').annotate(dcount=Count('model')).order_by('dcount')[:5]
+        qs = Computer.objects.filter(incident_state = "Incident").values('vendor').annotate(dcount=Count('vendor')).order_by('dcount')[:5]
         serialized_q = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return serialized_q
 
     def not_working(self):
-        qs = Computer.objects.filter(Q(deployment_state="Maintenance") | Q(deployment_state="Repair")).values('vendor', 'model').annotate(dcount=Count('model')).order_by('dcount')
+        qs = Computer.objects.filter(Q(deployment_state="Maintenance") | Q(deployment_state="Repair")).values('vendor').annotate(dcount=Count('vendor')).order_by('dcount')
         serialized_q = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return serialized_q
 
