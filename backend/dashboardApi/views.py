@@ -2,10 +2,10 @@
 
 from django.http.response import JsonResponse
 from rest_framework.response import Response
-from dashboardApi.serializers import ComputerSerializer
+from dashboardApi.serializers import ComputerSerializer, LaptopSerializer
 from rest_framework import views, status, viewsets
 import abc
-from dashboardApi.models import Computer
+from dashboardApi.models import Computer, Laptop
 from .services.operationalratio import get_ratio
 from .services.average_lifetime import get_lifetime
 from .services.incident import get_incident
@@ -32,6 +32,10 @@ class ThroughAPIBaseView(views.APIView):
 class ComputersViewSet(viewsets.ModelViewSet):
     serializer_class = ComputerSerializer
     queryset = Computer.objects.all()
+
+class LaptopsViewSet(viewsets.ModelViewSet):
+    serializer_class = LaptopSerializer
+    queryset = Laptop.objects.all()
 
 class OperationalRatioView(ThroughAPIBaseView):
     def get(self, request):

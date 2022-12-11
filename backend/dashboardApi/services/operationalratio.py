@@ -1,5 +1,4 @@
 from dashboardApi.models import Computer
-from django.core import serializers
 
 class OperationalRatioAPI():
     def __init__(self):

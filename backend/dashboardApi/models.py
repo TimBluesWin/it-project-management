@@ -19,3 +19,22 @@ class Computer(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+class Laptop(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    vendor = models.CharField(max_length=50, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    price = models.IntegerField(blank=True, null=True)
+    processor = models.CharField(max_length=50, blank=True, null=True)
+    operating_system = models.CharField(max_length=50, blank=True, null=True)
+    graphics = models.CharField(max_length=50, blank=True, null=True)
+    memory = models.CharField(max_length=50, blank=True, null=True)
+    storage = models.CharField(max_length=50, blank=True, null=True)
+    display = models.CharField(max_length=50, blank=True, null=True)
+    carbon_footprint = models.IntegerField(blank=True, null=True)
+
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
+        unique_together = ('name', 'price', 'processor', 'operating_system', 'graphics', 'memory', 'storage', 'display')
