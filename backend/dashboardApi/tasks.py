@@ -1,47 +1,15 @@
-import django, os, csv
-from datetime import datetime
-django.setup()
-from dashboardApi.models import Computer
 from time import sleep
 from dashboardApi.models import Laptop
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from celery import shared_task
 from money_parser import price_dec, price_str
 from django.db import IntegrityError
 import requests, os, pdfplumber, shutil, ssl
 
-def firstSetup():    
-    with open("computers.csv", "r") as f:
-        reader = csv.reader(f, delimiter=";")
-        for row in reader:
-            if row[8]:
-                old_date=row[8]
-                new_date=datetime.strptime(old_date, '%d/%m/%Y').strftime('%Y-%m-%d')
-            else:
-                new_date=None
-            if row[9]:
-                old_install=row[9]
-                new_install=datetime.strptime(old_install, '%d/%m/%Y').strftime('%Y-%m-%d')
-            else:
-                new_install=None
-            try:
-                Computer.objects.create(
-                        name = row[0], deployment_state = row[1],
-                        incident_state = row[2],
-                        vendor = row[3],
-                        model = row[4],
-                        type = row[5],
-                        property = row[6],
-                        site = row[7],
-                        warranty = new_date,
-                        install = new_install,
-                        asignment = row[10],
-                        cpu = row[11])
-            except:
-                continue
-
-def secondSetup():
+@shared_task(name="extract_laptops")        
+def extract_laptops():
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
@@ -82,7 +50,8 @@ def secondSetup():
         driver.get(url)
     driver.close()
 
-def thirdSetup():
+@shared_task(name="extract_footprints")        
+def extract_footprints():
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
@@ -98,8 +67,6 @@ def thirdSetup():
     ssl._create_default_https_context = ssl._create_stdlib_context
     for element in elements:
         name = element.find_element(By.CLASS_NAME, 'cta-text').text
-        if name == "" or name is None:
-            continue
         try:
             r = requests.get(element.find_element(By.TAG_NAME, 'a').get_attribute('href'), stream=True)
             if r.status_code == 200:
@@ -107,7 +74,7 @@ def thirdSetup():
                     r.raw.decode_content = True
                     shutil.copyfileobj(r.raw, f)
         except Exception as e:
-            continue
+            print(e)
         try:
             with pdfplumber.open(MYDIR + "/" + name + ".pdf") as pdf:
                 first_page = pdf.pages[0].extract_text()
@@ -126,9 +93,3 @@ def thirdSetup():
             continue
     shutil.rmtree(MYDIR)
     driver.close()
-
-if __name__ == "__main__":    
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")    
-    firstSetup()
-    secondSetup()
-    thirdSetup()

@@ -7,9 +7,13 @@ In the repository, we develop the project for ITPM 2022-2023 for the University 
 
 Guide used for configuration: https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react
     
-## Deployment
+## Deployment of backend
 
 Install required packages
+
+You must have installed: python3, and pip. And it's supposed you are using an IDE (VS code)
+
+(it can be pip3, it does not matter, just use pip3 instead of pip command)
 
 First, run the following:
 ```
@@ -26,23 +30,31 @@ Next, execute the following:
 ```
 cd backend
 export DJANGO_SETTINGS_MODULE=backend.settings
-pip install -r requirements.txt
 ```
 
 Run migrations
 
 
 ```
-python manage.py makemigrations dashboardApi
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
+python3 manage.py makemigrations dashboardApi
+python3 manage.py migrate
+python3 manage.py createsuperuser
+python3 manage.py runserver
+```
+If it's working, you can access to http://127.0.0.1:8000/admin/
+
+Setup all data into the DB, please wait until it ends:
+
+```
+export DJANGO_SETTINGS_MODULE=backend.settings
+python3 setupData.py
 ```
 
-Setup the data into the DB
+There are scheduled tasks for updating the data once a week. These processes are also done in the last command, so don't run it, this is just for your information. You can use them using the following commands: (Control + C) to stop them
 
 ```
-python setupData.py
+celery -A backend worker -l info
+celery -A backend beat -l info
 ```
 
 ## (Possible) Future implementation

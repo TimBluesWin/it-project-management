@@ -8,6 +8,15 @@ django = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 django-import-export = "*"
+celery = "*"
+redis = "*"
+selenium = "*"
+django-celery-beat = "*"
+django-celery-results = "*"
+money-parser = "*"
+wget = "*"
+requests = "*"
+pdfplumber = "*"
 
 [dev-packages]
 

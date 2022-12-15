@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboardApi',
     'rest_framework',
-    'import_export'
+    'import_export',
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +134,7 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 DATE_INPUT_FORMAT = ['%d-%m-%Y']
+
+# Celery settings
+# Celery configuration
+CELERY_BROKER_URL = 'redis://localhost:6379'
