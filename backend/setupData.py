@@ -10,6 +10,12 @@ from selenium.webdriver.common.by import By
 from money_parser import price_dec, price_str
 from django.db import IntegrityError
 import requests, os, pdfplumber, shutil, ssl
+import random
+
+def generate_random():
+    # for random energy consumption
+    number = round(random.uniform(30.00, 300.00), 2)
+    return number
 
 def firstSetup():    
     with open("computers.csv", "r") as f:
@@ -127,8 +133,18 @@ def thirdSetup():
     shutil.rmtree(MYDIR)
     driver.close()
 
+def fourthSetup():
+    # We want to at least populate the average lifetime and energy consumption.
+    # The average lifetime for all Dell objects are 4, while the energy consumption, we just make a dummy data first.
+    Laptop.objects.all().update(average_lifetime=4)
+    laptops = Laptop.objects.all()
+    for laptop in laptops:
+        Laptop.objects.filter(id=laptop.id).update(energy_consumption=generate_random())
+    return None
+
 if __name__ == "__main__":    
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")    
     firstSetup()
     secondSetup()
     thirdSetup()
+    fourthSetup()
