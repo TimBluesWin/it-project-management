@@ -2,15 +2,16 @@
 
 from django.http.response import JsonResponse
 from rest_framework.response import Response
+from rest_framework import generics
+from django.db.models import Q
 from dashboardApi.serializers import ComputerSerializer, LaptopSerializer
 from rest_framework import views, status, viewsets
 import abc
 from dashboardApi.models import Computer, Laptop
 from .services.operationalratio import get_ratio
 from .services.average_lifetime import get_lifetime
-from .services.incident import get_incident
-from .services.incident import get_most_incident
-from .services.incident import get_not_working
+from .services.incident import get_incident, get_most_incident, get_not_working, get_working
+from .services.laptops import get_cpu, get_display, get_graphics, get_memory, get_os, get_storage
 
 class ThroughAPIBaseView(views.APIView):
     response_viewset = None
@@ -66,3 +67,65 @@ class NotWorkingView(ThroughAPIBaseView):
     def get(self, request):
         words = get_not_working()
         return JsonResponse(words, safe=False)
+
+class WorkingView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_working()
+        return JsonResponse(words, safe=False)
+
+class CPUView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_cpu()
+        return JsonResponse(words, safe=False)
+
+class StorageView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_storage()
+        return JsonResponse(words, safe=False)
+
+class DisplayView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_display()
+        return JsonResponse(words, safe=False)
+
+class GraphicsView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_graphics()
+        return JsonResponse(words, safe=False)
+
+class MemoryView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_memory()
+        return JsonResponse(words, safe=False)
+
+class OSView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_os()
+        return JsonResponse(words, safe=False)
+        
+
+class FilterLaptopView(generics.ListAPIView):
+    serializer_class = LaptopSerializer
+
+    def get_queryset(self):
+        queryset = Laptop.objects.all()
+        filters = []
+        memory = self.request.query_params.get('memory', None)
+        display = self.request.query_params.get('display', None)
+        processor = self.request.query_params.get('processor', None)
+        ops_sys = self.request.query_params.get('operating_system', None)
+        storage = self.request.query_params.get('storage', None)
+        graphics = self.request.query_params.get('graphics', None)
+        if memory is not None:
+            filters.append(Q(memory__icontains=memory))
+        if display is not None:
+            filters.append(Q(display__icontains=display))
+        if processor is not None:
+            filters.append(Q(processor__icontains=processor))
+        if ops_sys is not None:
+            filters.append(Q(ops_sys__icontains=ops_sys))
+        if storage is not None:
+            filters.append(Q(storage__icontains=storage))
+        if graphics is not None:
+            filters.append(Q(graphics__icontains=graphics))
+        return queryset.filter(*filters)

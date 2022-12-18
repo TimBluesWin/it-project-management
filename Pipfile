@@ -17,6 +17,7 @@ money-parser = "*"
 wget = "*"
 requests = "*"
 pdfplumber = "*"
+django-filter = "*"
 
 [dev-packages]
 
