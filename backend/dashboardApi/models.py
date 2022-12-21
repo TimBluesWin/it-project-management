@@ -32,6 +32,8 @@ class Laptop(models.Model):
     storage = models.CharField(max_length=50, blank=True, null=True)
     display = models.CharField(max_length=50, blank=True, null=True)
     carbon_footprint = models.IntegerField(blank=True, null=True)
+    average_lifetime = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
+    energy_consumption = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
     def __str__(self) -> str:
         return self.name
