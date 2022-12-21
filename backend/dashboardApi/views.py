@@ -11,7 +11,7 @@ from dashboardApi.models import Computer, Laptop
 from .services.operationalratio import get_ratio
 from .services.average_lifetime import get_lifetime
 from .services.incident import get_incident, get_most_incident, get_not_working, get_working
-from .services.laptops import get_cpu, get_display, get_graphics, get_memory, get_os, get_storage
+from .services.laptops import get_cpu, get_display, get_graphics, get_memory, get_os, get_storage, get_best_green_laptop
 
 class ThroughAPIBaseView(views.APIView):
     response_viewset = None
@@ -101,6 +101,12 @@ class MemoryView(ThroughAPIBaseView):
 class OSView(ThroughAPIBaseView):
     def get(self, request):
         words = get_os()
+        return JsonResponse(words, safe=False)
+
+class GreenLaptopView(ThroughAPIBaseView):
+    def get(self, request):
+        memory = request.GET.get('memory')
+        words = get_best_green_laptop(memory)
         return JsonResponse(words, safe=False)
         
 

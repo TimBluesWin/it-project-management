@@ -6,6 +6,7 @@ from dashboardApi.views import CPUView, MemoryView, DisplayView, OSView, Storage
 from dashboardApi.views import ComputersViewSet, OperationalRatioView, LifetimeView, LaptopsViewSet
 from dashboardApi.views import LifetimeTopFiveView, IncidentView, MostIncidentView
 from dashboardApi.views import NotWorkingView, WorkingView
+from dashboardApi.views import GreenLaptopView
 
 router = routers.DefaultRouter()                                                                       
 urlpatterns = router.urls
@@ -54,6 +55,7 @@ urlpatterns += [
     path("api/display/", DisplayView.as_view(), name="display"), #Get possible components to filter
     path("api/operating_system/", OSView.as_view(), name="operating_system"), #Get possible components to filter
     path("api/filter_laptop/", FilterLaptopView.as_view(), name="filter_laptop"), #Filter laptops based on provided filters
+    path("api/best_green_laptop/", GreenLaptopView.as_view(), name="best_green_laptop"), #Filter laptops based on provided filters
     #Example /api/filter_laptop/?processor=11 or /api/filter_laptop/?memory=8&processor=11
     path('admin/', admin.site.urls),
 ]
