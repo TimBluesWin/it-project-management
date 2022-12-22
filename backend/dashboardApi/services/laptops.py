@@ -36,18 +36,15 @@ class LaptopAPI():
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
 
-    def best_green_laptop(self, memory):
+    def best_green_laptop(self, filters):
         # Steps:
         # Get all the ids. This will be stored in id_dictionaries variables
-        id_dictionaries = []
-        laptops_ranked = Laptop.objects.annotate(
+        laptops_ranked = Laptop.objects.filter(*filters).annotate(
             carbon_rank=RawSQL("RANK() OVER(ORDER BY carbon_footprint ASC NULLS LAST)", []),
             energy_rank=RawSQL("RANK() OVER(ORDER BY energy_consumption ASC NULLS LAST)", []),
             lifetime_rank=RawSQL("RANK() OVER(ORDER BY average_lifetime ASC NULLS LAST)", []),
             greenness_rank=ExpressionWrapper(0.5 * F('carbon_rank') + 0.2 * F('energy_rank') + 0.3 * F('lifetime_rank'), output_field=FloatField())
         ).order_by('greenness_rank').values('id', 'memory', 'carbon_footprint', 'energy_consumption', 'average_lifetime', 'carbon_rank', 'energy_rank', 'lifetime_rank', 'greenness_rank')
-        if(memory):
-            laptops_ranked = laptops_ranked.filter(memory__startswith=memory)
         qs_json = json.dumps(list(laptops_ranked), cls=DjangoJSONEncoder)
         return qs_json
 
@@ -77,6 +74,6 @@ def get_display():
     api = LaptopAPI()
     return api.display()
 
-def get_best_green_laptop(memory):
+def get_best_green_laptop(filters):
     api = LaptopAPI()
-    return api.best_green_laptop(memory)
+    return api.best_green_laptop(filters)

@@ -105,8 +105,26 @@ class OSView(ThroughAPIBaseView):
 
 class GreenLaptopView(ThroughAPIBaseView):
     def get(self, request):
-        memory = request.GET.get('memory')
-        words = get_best_green_laptop(memory)
+        filters = []
+        memory = self.request.query_params.get('memory', None)
+        display = self.request.query_params.get('display', None)
+        processor = self.request.query_params.get('processor', None)
+        ops_sys = self.request.query_params.get('operating_system', None)
+        storage = self.request.query_params.get('storage', None)
+        graphics = self.request.query_params.get('graphics', None)
+        if memory is not None:
+            filters.append(Q(memory__icontains=memory))
+        if display is not None:
+            filters.append(Q(display__icontains=display))
+        if processor is not None:
+            filters.append(Q(processor__icontains=processor))
+        if ops_sys is not None:
+            filters.append(Q(ops_sys__icontains=ops_sys))
+        if storage is not None:
+            filters.append(Q(storage__icontains=storage))
+        if graphics is not None:
+            filters.append(Q(graphics__icontains=graphics))
+        words = get_best_green_laptop(filters)
         return JsonResponse(words, safe=False)
         
 
