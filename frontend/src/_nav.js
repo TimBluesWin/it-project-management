@@ -12,20 +12,14 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Deployment State History',
-    to: '/deployment-state-history',
+    name: 'Details Lifetime',
+    to: '/details/detail-lifetime',
     icon: <CIcon icon={cilHistory} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Oldest Devices',
-    to: '/oldest-devices',
-    icon: <CIcon icon={cilDevices} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
     name: 'Market Analysis',
-    to: '/market-analysis',
+    to: '/market/market-analysis',
     icon: <CIcon icon={cilGraph} customClassName="nav-icon" />,
   },
 ]
