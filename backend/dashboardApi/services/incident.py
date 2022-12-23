@@ -9,13 +9,13 @@ class OperationalRatioAPI():
     def __init__(self):
         super().__init__()
     
-    def get_broken(self):
-        inactive_pc = Computer.objects.filter(incident_state = "Incident")
+    def get_broken(self, filters):
+        inactive_pc = Computer.objects.filter(*filters, incident_state = "Incident")
         qs_json = serializers.serialize('json', inactive_pc)
         return qs_json
     
-    def get_working(self):
-        inactive_pc = Computer.objects.filter(incident_state = "Operational")
+    def get_working(self, filters):
+        inactive_pc = Computer.objects.filter(*filters, incident_state = "Operational")
         qs_json = serializers.serialize('json', inactive_pc)
         return qs_json
 
@@ -29,9 +29,9 @@ class OperationalRatioAPI():
         serialized_q = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return serialized_q
 
-def get_incident():
+def get_incident(filters):
     api = OperationalRatioAPI()
-    return api.get_broken()
+    return api.get_broken(filters)
 
 def get_most_incident():
     api = OperationalRatioAPI()
@@ -41,6 +41,6 @@ def get_not_working():
     api = OperationalRatioAPI()
     return api.not_working()
 
-def get_working():
+def get_working(filters):
     api = OperationalRatioAPI()
-    return api.get_working()
+    return api.get_working(filters)

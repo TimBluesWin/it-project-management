@@ -2,7 +2,7 @@
 from django.urls import path
 from rest_framework import routers
 from django.contrib import admin
-from dashboardApi.views import CPUView, MemoryView, DisplayView, OSView, StorageView, GraphicsView, FilterLaptopView
+from dashboardApi.views import CPUView, MemoryView, DisplayView, OSView, StorageView, GraphicsView, FilterLaptopView, CheapestLaptopView
 from dashboardApi.views import ComputersViewSet, OperationalRatioView, LifetimeView, LaptopsViewSet
 from dashboardApi.views import LifetimeTopFiveView, IncidentView, MostIncidentView
 from dashboardApi.views import NotWorkingView, WorkingView
@@ -56,6 +56,8 @@ urlpatterns += [
     path("api/operating_system/", OSView.as_view(), name="operating_system"), #Get possible components to filter
     path("api/filter_laptop/", FilterLaptopView.as_view(), name="filter_laptop"), #Filter laptops based on provided filters
     path("api/best_green_laptop/", GreenLaptopView.as_view(), name="best_green_laptop"), #Filter laptops based on provided filters
+    path("api/cheapest_laptop/", CheapestLaptopView.as_view(), name="cheapest_laptop"), #Filter laptops based on provided filters
+    #path("api/best_green_laptop/", GreenLaptopView.as_view(), name="best_green_laptop"), #Filter laptops based on provided filters
     #Example /api/filter_laptop/?processor=11 or /api/filter_laptop/?memory=8&processor=11
     path('admin/', admin.site.urls),
 ]
