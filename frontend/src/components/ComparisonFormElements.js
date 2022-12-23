@@ -53,8 +53,9 @@ export function CPUInput() {
       .then((res) => res.json())
       .then(
         (result) => {
+          let resultArray = JSON.parse(result)
           setIsLoaded(true)
-          setDataCpu(result)
+          setDataCpu(resultArray)
           console.log(result)
         },
         (error) => {
