@@ -10,9 +10,12 @@ const MarketAnalysis = () => {
       <CRow>
         <CCol md="12">
           <form>
+            <label>Memory:</label>
             <MemoryInput />
             <br></br>
+            <label>CPU:</label>
             <CPUInput />
+            <br></br>
             <p>Price range:</p>
             <button type="submit" className="btn btn-success">
               Go green!
