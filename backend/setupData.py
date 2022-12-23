@@ -10,12 +10,6 @@ from selenium.webdriver.common.by import By
 from money_parser import price_dec, price_str
 from django.db import IntegrityError
 import requests, os, pdfplumber, shutil, ssl
-import random
-
-def generate_random():
-    # for random energy consumption
-    number = round(random.uniform(30.00, 300.00), 2)
-    return number
 
 def firstSetup():    
     with open("computers.csv", "r") as f:
@@ -59,6 +53,10 @@ def secondSetup():
         articles = driver.find_elements(By.TAG_NAME, "article")
         for article in articles:
             specs = article.find_elements(By.CLASS_NAME, 'ps-iconography-specs-label')
+            img = article.find_element(By.TAG_NAME, 'img').get_attribute('data-src')
+            if not img:
+                img = article.find_element(By.TAG_NAME, 'img').get_attribute('src')
+            img = "https:" + str(img) if "https://" not in img else img
             try:
                 Laptop.objects.create(
                     vendor = "DELL", 
@@ -70,6 +68,7 @@ def secondSetup():
                     memory = specs[3].text,
                     storage = specs[4].text,
                     display = specs[5].text,
+                    image = img
                     )
             except IntegrityError:
                 continue
@@ -82,6 +81,7 @@ def secondSetup():
                     memory = specs[1].text,
                     storage = specs[2].text,
                     display = specs[3].text,
+                    image = img
                     )
         n += 1
         url = f"https://www.dell.com/en-us/shop/dell-laptops/sr/laptops?page={n}"
@@ -117,15 +117,26 @@ def thirdSetup():
         try:
             with pdfplumber.open(MYDIR + "/" + name + ".pdf") as pdf:
                 first_page = pdf.pages[0].extract_text()
+                try:
+                    second_page = pdf.pages[1].extract_text()
+                    filter3 = second_page.split("Use Location  EU  ")[1]
+                    filter4 = filter3.split(" kWh")[0]
+                except:
+                    try:
+                        filter3 = first_page.split("Use Location  EU  ")[1]
+                        filter4 = filter3.split(" kWh")[0]
+                    except:
+                        continue
+                
             try:
                 filter1 = first_page.split("This product’s estimated carbon footprint: ")[1]
                 filter2 = filter1.split("kgCO2e ")[0]
                 try:
                     co2 = filter2.split("  ")[0]
-                    Laptop.objects.filter(name__icontains = name).update(carbon_footprint = co2)
+                    Laptop.objects.filter(name__icontains = name).update(carbon_footprint = co2, energy_consumption = filter4, average_lifetime = 4)
                 except:
                     co2 = filter2.split(" ")[0]
-                    Laptop.objects.filter(name__icontains = name).update(carbon_footprint = co2)
+                    Laptop.objects.filter(name__icontains = name).update(carbon_footprint = co2, energy_consumption = filter4, average_lifetime = 4)
             except:
                 continue
         except FileNotFoundError:
@@ -133,18 +144,8 @@ def thirdSetup():
     shutil.rmtree(MYDIR)
     driver.close()
 
-def fourthSetup():
-    # We want to at least populate the average lifetime and energy consumption.
-    # The average lifetime for all Dell objects are 4, while the energy consumption, we just make a dummy data first.
-    Laptop.objects.all().update(average_lifetime=4)
-    laptops = Laptop.objects.all()
-    for laptop in laptops:
-        Laptop.objects.filter(id=laptop.id).update(energy_consumption=generate_random())
-    return None
-
 if __name__ == "__main__":    
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")    
     firstSetup()
     secondSetup()
     thirdSetup()
-    fourthSetup()
