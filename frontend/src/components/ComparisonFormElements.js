@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
+import PropTypes from 'prop-types'
 
-export function MemoryInput() {
+export function MemoryInput({ handleChange }) {
+  MemoryInput.propTypes = {
+    handleChange: PropTypes.func,
+  }
+
   // Fetch list of memory
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -37,8 +42,7 @@ export function MemoryInput() {
   } else if (!isLoaded) {
     return <div>Loading...</div>
   } else {
-    console.log(options)
-    return <Select options={options} isMulti name="memory" />
+    return <Select options={options} onChange={handleChange} isMulti name="memory" />
   }
 }
 
@@ -56,7 +60,6 @@ export function CPUInput() {
           let resultArray = JSON.parse(result)
           setIsLoaded(true)
           setDataCpu(resultArray)
-          console.log(result)
         },
         (error) => {
           setIsLoaded(true)
@@ -79,7 +82,6 @@ export function CPUInput() {
   } else if (!isLoaded) {
     return <div>Loading...</div>
   } else {
-    console.log(options)
     return <Select options={options} isMulti name="cpu" />
   }
 }
