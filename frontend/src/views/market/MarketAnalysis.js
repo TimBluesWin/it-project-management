@@ -2,13 +2,21 @@ import React, { useState } from 'react'
 
 import { CCol, CRow } from '@coreui/react'
 
-import { MemoryInput, CPUInput } from 'src/components/ComparisonFormElements'
-import PropTypes from 'prop-types'
+import {
+  MemoryInput,
+  CPUInput,
+  DisplayInput,
+  GraphicsInput,
+} from 'src/components/ComparisonFormElements'
 
 const MarketAnalysis = () => {
   const [formInputData, setFormInputData] = useState({
     memory: [],
     cpu: [],
+    display: [],
+    graphics: [],
+    storage: [],
+    os: [],
   })
 
   function handleMemoryChange(newValue, actionMeta) {
@@ -19,6 +27,16 @@ const MarketAnalysis = () => {
   function handleCpuChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
     setFormInputData({ ...formInputData, cpu: newValuesArr })
+  }
+
+  function handleDisplayChange(newValue, actionMeta) {
+    const newValuesArr = newValue ? newValue.map((item) => item.value) : []
+    setFormInputData({ ...formInputData, display: newValuesArr })
+  }
+
+  function handleGraphicsChange(newValue, actionMeta) {
+    const newValuesArr = newValue ? newValue.map((item) => item.value) : []
+    setFormInputData({ ...formInputData, graphics: newValuesArr })
   }
 
   const handleFormSubmit = (evnt) => {
@@ -37,14 +55,34 @@ const MarketAnalysis = () => {
     <>
       <CRow>
         <CCol md="12">
-          <form>
-            <label>Memory:</label>
-            <MemoryInput handleChange={handleMemoryChange} />
-            <br></br>
-            <label>CPU:</label>
-            <CPUInput handleChange={handleCpuChange} />
-            <br></br>
-            <p>Price range:</p>
+          <form className="card p-3 bg-white">
+            <div className="mb-3">
+              <p>Price range:</p>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="memory-label" className="form-label">
+                Memory:
+              </label>
+              <MemoryInput handleChange={handleMemoryChange} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="cpu-label" className="form-label">
+                CPU:
+              </label>
+              <CPUInput handleChange={handleCpuChange} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="graphics-label" className="form-label">
+                Graphics:
+              </label>
+              <GraphicsInput handleChange={handleGraphicsChange} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="display-label" className="form-label">
+                Display:
+              </label>
+              <DisplayInput handleChange={handleDisplayChange} />
+            </div>
             <button type="submit" onClick={handleFormSubmit} className="btn btn-success">
               Go green!
             </button>
