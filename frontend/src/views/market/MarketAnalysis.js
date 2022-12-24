@@ -13,12 +13,12 @@ const MarketAnalysis = () => {
 
   function handleMemoryChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
-    setFormInputData({ memory: newValuesArr })
+    setFormInputData({ ...formInputData, memory: newValuesArr })
   }
 
   function handleCpuChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
-    setFormInputData({ cpu: newValuesArr })
+    setFormInputData({ ...formInputData, cpu: newValuesArr })
   }
 
   const handleFormSubmit = (evnt) => {
@@ -28,7 +28,7 @@ const MarketAnalysis = () => {
       console.log(formInputData)
     }
     // -- Timmy --
-    // Generate URL for the next page. 
+    // Generate URL for the next page.
     // Technically we can use DangerouslySetInnerHTML, but it's unsafe.
     // So decide to just use separate page to show the recommendations.
   }
@@ -42,7 +42,7 @@ const MarketAnalysis = () => {
             <MemoryInput handleChange={handleMemoryChange} />
             <br></br>
             <label>CPU:</label>
-            <CPUInput />
+            <CPUInput handleChange={handleCpuChange} />
             <br></br>
             <p>Price range:</p>
             <button type="submit" onClick={handleFormSubmit} className="btn btn-success">

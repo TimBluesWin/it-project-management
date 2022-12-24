@@ -46,7 +46,11 @@ export function MemoryInput({ handleChange }) {
   }
 }
 
-export function CPUInput() {
+export function CPUInput({ handleChange }) {
+  CPUInput.propTypes = {
+    handleChange: PropTypes.func,
+  }
+
   // Fetch list of memory
   const [error, setError] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -82,6 +86,6 @@ export function CPUInput() {
   } else if (!isLoaded) {
     return <div>Loading...</div>
   } else {
-    return <Select options={options} isMulti name="cpu" />
+    return <Select options={options} onChange={handleChange} isMulti name="cpu" />
   }
 }
