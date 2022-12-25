@@ -68,8 +68,19 @@ const MarketAnalysis = () => {
       <CRow>
         <CCol md="12">
           <form className="card p-3 bg-white">
-            <div className="mb-3">
-              <p>Price range:</p>
+            <div className="mb-3 row">
+              <div className="col-md-3">
+                <label className="form-label">Min. Price: </label>
+              </div>
+              <div className="col-md-3">
+                <input className="form-control" type="text" name="min-price"></input>
+              </div>
+              <div className="col-md-3">
+                <label className="form-label">Max. Price: </label>
+              </div>
+              <div className="col-md-3">
+                <input className="form-control" type="text" name="max-price"></input>
+              </div>
             </div>
             <div className="mb-3">
               <label htmlFor="memory-label" className="form-label">
