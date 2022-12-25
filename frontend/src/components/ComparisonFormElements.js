@@ -177,3 +177,91 @@ export function GraphicsInput({ handleChange }) {
     return <Select options={options} onChange={handleChange} isMulti name="graphics" />
   }
 }
+
+export function StorageInput({ handleChange }) {
+  StorageInput.propTypes = {
+    handleChange: PropTypes.func,
+  }
+
+  // Fetch list of memory
+  const [error, setError] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [dataStorage, setDataStorage] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/storage')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          let resultArray = JSON.parse(result)
+          setIsLoaded(true)
+          setDataStorage(resultArray)
+        },
+        (error) => {
+          setIsLoaded(true)
+          setError(error)
+        },
+      )
+  }, [])
+
+  let options = []
+
+  for (let i = 0; i < dataStorage.length; i++) {
+    let option = {}
+    option.value = dataStorage[i].storage
+    option.label = dataStorage[i].storage
+    options.push(option)
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>
+  } else if (!isLoaded) {
+    return <div>Loading...</div>
+  } else {
+    return <Select options={options} onChange={handleChange} isMulti name="storage" />
+  }
+}
+
+export function OperatingSystemInput({ handleChange }) {
+  OperatingSystemInput.propTypes = {
+    handleChange: PropTypes.func,
+  }
+
+  // Fetch list of memory
+  const [error, setError] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [dataOS, setDataOS] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/operating_system')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          let resultArray = JSON.parse(result)
+          setIsLoaded(true)
+          setDataOS(resultArray)
+        },
+        (error) => {
+          setIsLoaded(true)
+          setError(error)
+        },
+      )
+  }, [])
+
+  let options = []
+
+  for (let i = 0; i < dataOS.length; i++) {
+    let option = {}
+    option.value = dataOS[i].operating_system
+    option.label = dataOS[i].operating_system
+    options.push(option)
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>
+  } else if (!isLoaded) {
+    return <div>Loading...</div>
+  } else {
+    return <Select options={options} onChange={handleChange} isMulti name="operating-system" />
+  }
+}

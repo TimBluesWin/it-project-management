@@ -7,6 +7,8 @@ import {
   CPUInput,
   DisplayInput,
   GraphicsInput,
+  StorageInput,
+  OperatingSystemInput,
 } from 'src/components/ComparisonFormElements'
 
 const MarketAnalysis = () => {
@@ -37,6 +39,16 @@ const MarketAnalysis = () => {
   function handleGraphicsChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
     setFormInputData({ ...formInputData, graphics: newValuesArr })
+  }
+
+  function handleStorageChange(newValue, actionMeta) {
+    const newValuesArr = newValue ? newValue.map((item) => item.value) : []
+    setFormInputData({ ...formInputData, storage: newValuesArr })
+  }
+
+  function handleOSChange(newValue, actionMeta) {
+    const newValuesArr = newValue ? newValue.map((item) => item.value) : []
+    setFormInputData({ ...formInputData, os: newValuesArr })
   }
 
   const handleFormSubmit = (evnt) => {
@@ -82,6 +94,18 @@ const MarketAnalysis = () => {
                 Display:
               </label>
               <DisplayInput handleChange={handleDisplayChange} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="storage-label" className="form-label">
+                Storage:
+              </label>
+              <StorageInput handleChange={handleStorageChange} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="os-label" className="form-label">
+                Operating System
+              </label>
+              <OperatingSystemInput handleChange={handleOSChange} />
             </div>
             <button type="submit" onClick={handleFormSubmit} className="btn btn-success">
               Go green!
