@@ -252,8 +252,13 @@ export function OperatingSystemInput({ handleChange }) {
 
   for (let i = 0; i < dataOS.length; i++) {
     let option = {}
-    option.value = dataOS[i].operating_system
-    option.label = dataOS[i].operating_system
+    if (dataOS[i].operating_system === null) {
+      option.value = '-'
+      option.label = '-'
+    } else {
+      option.value = dataOS[i].operating_system
+      option.label = dataOS[i].operating_system
+    }
     options.push(option)
   }
 
