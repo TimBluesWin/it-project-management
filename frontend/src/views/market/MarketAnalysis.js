@@ -9,6 +9,7 @@ import {
   GraphicsInput,
   StorageInput,
   OperatingSystemInput,
+  PriceInput,
 } from 'src/components/ComparisonFormElements'
 
 const MarketAnalysis = () => {
@@ -19,6 +20,8 @@ const MarketAnalysis = () => {
     graphics: [],
     storage: [],
     os: [],
+    minPrice: '',
+    maxPrice: '',
   })
 
   function handleMemoryChange(newValue, actionMeta) {
@@ -51,6 +54,16 @@ const MarketAnalysis = () => {
     setFormInputData({ ...formInputData, os: newValuesArr })
   }
 
+  function handleMinPriceChange(evnt) {
+    const inputValue = evnt.target.value
+    setFormInputData({ ...formInputData, minPrice: inputValue })
+  }
+
+  function handleMaxPriceChange(evnt) {
+    const inputValue = evnt.target.value
+    setFormInputData({ ...formInputData, maxPrice: inputValue })
+  }
+
   const handleFormSubmit = (evnt) => {
     evnt.preventDefault()
     const checkEmptyInput = !Object.values(formInputData).every((res) => res === '')
@@ -69,18 +82,10 @@ const MarketAnalysis = () => {
         <CCol md="12">
           <form className="card p-3 bg-white">
             <div className="mb-3 row">
-              <div className="col-md-3">
-                <label className="form-label">Min. Price: </label>
-              </div>
-              <div className="col-md-3">
-                <input className="form-control" type="text" name="min-price"></input>
-              </div>
-              <div className="col-md-3">
-                <label className="form-label">Max. Price: </label>
-              </div>
-              <div className="col-md-3">
-                <input className="form-control" type="text" name="max-price"></input>
-              </div>
+              <PriceInput
+                handleMinPriceChange={handleMinPriceChange}
+                handleMaxPriceChange={handleMaxPriceChange}
+              />
             </div>
             <div className="mb-3">
               <label htmlFor="memory-label" className="form-label">

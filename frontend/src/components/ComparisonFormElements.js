@@ -270,3 +270,37 @@ export function OperatingSystemInput({ handleChange }) {
     return <Select options={options} onChange={handleChange} isMulti name="operating-system" />
   }
 }
+
+export function PriceInput({ handleMinPriceChange, handleMaxPriceChange }) {
+  PriceInput.propTypes = {
+    handleMinPriceChange: PropTypes.func,
+    handleMaxPriceChange: PropTypes.func,
+  }
+
+  return (
+    <>
+      <div className="col-md-3">
+        <label className="form-label">Min. Price:</label>
+      </div>
+      <div className="col-md-3">
+        <input
+          className="form-control"
+          type="number"
+          onChange={handleMinPriceChange}
+          name="min-price"
+        ></input>
+      </div>
+      <div className="col-md-3">
+        <label className="form-label">Max. Price: </label>
+      </div>
+      <div className="col-md-3">
+        <input
+          className="form-control"
+          type="number"
+          onChange={handleMaxPriceChange}
+          name="max-price"
+        ></input>
+      </div>
+    </>
+  )
+}
