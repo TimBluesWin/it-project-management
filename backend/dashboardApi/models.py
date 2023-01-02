@@ -16,6 +16,7 @@ class Computer(models.Model):
     install = models.DateField(blank=True, null=True)
     asignment = models.TextField(max_length=50,blank=True, null=True)
     cpu = models.TextField(max_length=50,blank=True, null=True)
+    energy_consumption = models.IntegerField(blank=True, null=True)
 
     def __str__(self) -> str:
         return self.name

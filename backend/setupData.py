@@ -37,7 +37,8 @@ def firstSetup():
                         warranty = new_date,
                         install = new_install,
                         asignment = row[10],
-                        cpu = row[11])
+                        cpu = row[11],
+                        energy_consumption=row[12])
             except:
                 continue
 
