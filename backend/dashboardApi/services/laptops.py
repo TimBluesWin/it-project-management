@@ -1,6 +1,7 @@
 from dashboardApi.models import Laptop
 from django.core import serializers
 import json
+from django.db.models import Count
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.functions import DenseRank
 from django.db.models import F, ExpressionWrapper, FloatField
@@ -12,27 +13,27 @@ class LaptopAPI():
         super().__init__()
     
     def cpu(self):
-        qs = Laptop.objects.values('processor').distinct()
+        qs = Laptop.objects.values('processor').annotate(count=Count('pk')).order_by('-count')
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
     def operating_system(self):
-        qs = Laptop.objects.values('operating_system').distinct()
+        qs = Laptop.objects.values('operating_system').annotate(count=Count('pk')).order_by('-count')
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
     def graphics(self):
-        qs = Laptop.objects.values('graphics').distinct()
+        qs = Laptop.objects.values('graphics').annotate(count=Count('pk')).order_by('-count')
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
     def memory(self):
-        qs = Laptop.objects.values('memory').distinct()
+        qs = Laptop.objects.values('memory').annotate(count=Count('pk')).order_by('-count')
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
     def storage(self):
-        qs = Laptop.objects.values('storage').distinct()
+        qs = Laptop.objects.values('storage').annotate(count=Count('pk')).order_by('-count')
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
     def display(self):
-        qs = Laptop.objects.values('display').distinct()
+        qs = Laptop.objects.values('display').annotate(count=Count('pk')).order_by('-count')
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
 
