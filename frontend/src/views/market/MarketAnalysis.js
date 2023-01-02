@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 
 import { CCol, CRow } from '@coreui/react'
 
+import { useNavigate } from 'react-router-dom'
+
 import {
   MemoryInput,
   CPUInput,
@@ -24,34 +26,42 @@ const MarketAnalysis = () => {
     maxPrice: '',
   })
 
+  const navigate = useNavigate()
+
   function handleMemoryChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
-    setFormInputData({ ...formInputData, memory: newValuesArr })
+    const newValues = newValuesArr.join('|')
+    setFormInputData({ ...formInputData, memory: newValues })
   }
 
   function handleCpuChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
-    setFormInputData({ ...formInputData, cpu: newValuesArr })
+    const newValues = newValuesArr.join('|')
+    setFormInputData({ ...formInputData, cpu: newValues })
   }
 
   function handleDisplayChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
-    setFormInputData({ ...formInputData, display: newValuesArr })
+    const newValues = newValuesArr.join('|')
+    setFormInputData({ ...formInputData, display: newValues })
   }
 
   function handleGraphicsChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
-    setFormInputData({ ...formInputData, graphics: newValuesArr })
+    const newValues = newValuesArr.join('|')
+    setFormInputData({ ...formInputData, graphics: newValues })
   }
 
   function handleStorageChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
-    setFormInputData({ ...formInputData, storage: newValuesArr })
+    const newValues = newValuesArr.join('|')
+    setFormInputData({ ...formInputData, storage: newValues })
   }
 
   function handleOSChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
-    setFormInputData({ ...formInputData, os: newValuesArr })
+    const newValues = newValuesArr.join('|')
+    setFormInputData({ ...formInputData, os: newValues })
   }
 
   function handleMinPriceChange(evnt) {
@@ -66,14 +76,22 @@ const MarketAnalysis = () => {
 
   const handleFormSubmit = (evnt) => {
     evnt.preventDefault()
-    const checkEmptyInput = !Object.values(formInputData).every((res) => res === '')
-    if (checkEmptyInput) {
-      console.log(formInputData)
+    let baseURL = 'http://localhost:3000/results/results'
+    let currentURL = baseURL
+    let iterator = 1
+    for (const property in formInputData) {
+      if (formInputData[property].length > 0) {
+        if (iterator === 1) {
+          currentURL = currentURL + '?'
+        } else {
+          currentURL = currentURL + '&'
+        }
+        currentURL = currentURL + property + '=' + formInputData[property]
+        iterator = iterator + 1
+      }
     }
-    // -- Timmy --
-    // Generate URL for the next page.
-    // Technically we can use DangerouslySetInnerHTML, but it's unsafe.
-    // So decide to just use separate page to show the recommendations.
+    console.log(encodeURI(currentURL))
+    navigate('/results/results', { state: formInputData })
   }
 
   return (
