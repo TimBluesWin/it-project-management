@@ -8,6 +8,7 @@ from dashboardApi.serializers import ComputerSerializer, LaptopSerializer
 from rest_framework import views, status, viewsets
 import abc
 from dashboardApi.models import Computer, Laptop
+from .services.computers import get_inactive_computers_by_model, get_incident_computers_by_model, get_avg_energy
 from .services.operationalratio import get_ratio
 from .services.average_lifetime import get_lifetime
 from .services.incident import get_incident, get_most_incident, get_not_working, get_working
@@ -83,6 +84,33 @@ class WorkingView(ThroughAPIBaseView):
         if brand is not None:
             filters.append(Q(vendor__icontains=brand))
         words = get_working(filters)
+        return JsonResponse(words, safe=False)
+
+class InactiveBrandCountView(ThroughAPIBaseView):
+    def get(self, request):
+        filters = []
+        brand = self.request.query_params.get('vendor', None)
+        if brand is not None:
+            filters.append(Q(vendor__icontains=brand))
+        words = get_inactive_computers_by_model(filters)
+        return JsonResponse(words, safe=False)
+
+class IncidentBrandCountView(ThroughAPIBaseView):
+    def get(self, request):
+        filters = []
+        brand = self.request.query_params.get('vendor', None)
+        if brand is not None:
+            filters.append(Q(vendor__icontains=brand))
+        words = get_incident_computers_by_model(filters)
+        return JsonResponse(words, safe=False)
+
+class AVGEnergyView(ThroughAPIBaseView):
+    def get(self, request):
+        filters = []
+        brand = self.request.query_params.get('vendor', None)
+        if brand is not None:
+            filters.append(Q(vendor__icontains=brand))
+        words = get_avg_energy(filters)
         return JsonResponse(words, safe=False)
 
 class CPUView(ThroughAPIBaseView):
