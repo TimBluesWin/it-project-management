@@ -17,7 +17,7 @@ import {
 const MarketAnalysis = () => {
   const [formInputData, setFormInputData] = useState({
     memory: [],
-    cpu: [],
+    processor: [],
     display: [],
     graphics: [],
     storage: [],
@@ -37,7 +37,7 @@ const MarketAnalysis = () => {
   function handleCpuChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
     const newValues = newValuesArr.join('|')
-    setFormInputData({ ...formInputData, cpu: newValues })
+    setFormInputData({ ...formInputData, processor: newValues })
   }
 
   function handleDisplayChange(newValue, actionMeta) {
