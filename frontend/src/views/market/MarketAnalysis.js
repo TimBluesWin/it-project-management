@@ -21,9 +21,9 @@ const MarketAnalysis = () => {
     display: [],
     graphics: [],
     storage: [],
-    os: [],
-    minPrice: '',
-    maxPrice: '',
+    operating_system: [],
+    min_price: '',
+    max_price: '',
   })
 
   const navigate = useNavigate()
@@ -61,17 +61,17 @@ const MarketAnalysis = () => {
   function handleOSChange(newValue, actionMeta) {
     const newValuesArr = newValue ? newValue.map((item) => item.value) : []
     const newValues = newValuesArr.join('|')
-    setFormInputData({ ...formInputData, os: newValues })
+    setFormInputData({ ...formInputData, operating_system: newValues })
   }
 
   function handleMinPriceChange(evnt) {
     const inputValue = evnt.target.value
-    setFormInputData({ ...formInputData, minPrice: inputValue })
+    setFormInputData({ ...formInputData, min_price: inputValue })
   }
 
   function handleMaxPriceChange(evnt) {
     const inputValue = evnt.target.value
-    setFormInputData({ ...formInputData, maxPrice: inputValue })
+    setFormInputData({ ...formInputData, max_price: inputValue })
   }
 
   const handleFormSubmit = (evnt) => {

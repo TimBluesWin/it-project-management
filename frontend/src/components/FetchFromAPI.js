@@ -50,6 +50,14 @@ export function FetchLifecycle() {
         height="400px"
         data={finalDataActiveComputers}
         options={optionsActiveComputers}
+        chartEvents={[
+          {
+            eventName: 'select',
+            callback: () => {
+              console.warn('Chart is clicked!')
+            },
+          },
+        ]}
       />
     )
   }

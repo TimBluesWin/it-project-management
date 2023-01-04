@@ -45,7 +45,7 @@ class LaptopAPI():
             price_rank=RawSQL("RANK() OVER(ORDER BY price ASC NULLS LAST)", []),
             greenness_rank=ExpressionWrapper(0.5 * F('carbon_rank') + 0.2 * F('energy_rank') + 0.3 * F('lifetime_rank'), output_field=FloatField()),
             overall = ExpressionWrapper((0.5 * F('carbon_rank') + 0.2 * F('energy_rank') + 0.3 * F('lifetime_rank')) * 0.55 +  F('price_rank') * 0.45, output_field=FloatField())
-        ).order_by('greenness_rank').values('id', 'processor', 'operating_system', 'graphics', 'memory', 'storage', 'carbon_footprint', 'display', 'image', 'energy_consumption', 'average_lifetime', 'carbon_rank', 'energy_rank', 'lifetime_rank', 'greenness_rank', 'overall', 'price','price_rank')
+        ).order_by('greenness_rank').values('id', 'name', 'processor', 'operating_system', 'graphics', 'memory', 'storage', 'carbon_footprint', 'display', 'image', 'energy_consumption', 'average_lifetime', 'carbon_rank', 'energy_rank', 'lifetime_rank', 'greenness_rank', 'overall', 'price','price_rank')
         qs_json = json.dumps(list(laptops_ranked), cls=DjangoJSONEncoder)
         return qs_json
         
@@ -59,7 +59,7 @@ class LaptopAPI():
             price_rank=RawSQL("RANK() OVER(ORDER BY price ASC NULLS LAST)", []),
             greenness_rank=ExpressionWrapper(0.5 * F('carbon_rank') + 0.2 * F('energy_rank') + 0.3 * F('lifetime_rank'), output_field=FloatField()),
             overall = ExpressionWrapper((0.5 * F('carbon_rank') + 0.2 * F('energy_rank') + 0.3 * F('lifetime_rank')) * 0.55 +  F('price_rank') * 0.45, output_field=FloatField())
-        ).order_by('price').values('id', 'processor', 'operating_system', 'graphics', 'memory', 'storage', 'carbon_footprint', 'display', 'image', 'energy_consumption', 'average_lifetime', 'carbon_rank', 'energy_rank', 'lifetime_rank', 'greenness_rank', 'overall', 'price', 'price_rank')
+        ).order_by('price').values('id', 'name', 'processor', 'operating_system', 'graphics', 'memory', 'storage', 'carbon_footprint', 'display', 'image', 'energy_consumption', 'average_lifetime', 'carbon_rank', 'energy_rank', 'lifetime_rank', 'greenness_rank', 'overall', 'price', 'price_rank')
         qs_json = json.dumps(list(laptops_ranked), cls=DjangoJSONEncoder)
         return qs_json
         
@@ -73,7 +73,7 @@ class LaptopAPI():
             price_rank=RawSQL("RANK() OVER(ORDER BY price ASC NULLS LAST)", []),
             greenness_rank=ExpressionWrapper(0.5 * F('carbon_rank') + 0.2 * F('energy_rank') + 0.3 * F('lifetime_rank'), output_field=FloatField()),
             overall = ExpressionWrapper((0.5 * F('carbon_rank') + 0.2 * F('energy_rank') + 0.3 * F('lifetime_rank')) * 0.55 +  F('price_rank') * 0.45, output_field=FloatField())
-        ).order_by('overall').values('id', 'processor', 'operating_system', 'graphics', 'memory', 'storage', 'carbon_footprint', 'display', 'image', 'energy_consumption', 'average_lifetime', 'carbon_rank', 'energy_rank', 'lifetime_rank', 'greenness_rank', 'overall', 'price', 'price_rank')
+        ).order_by('overall').values('id', 'name', 'processor', 'operating_system', 'graphics', 'memory', 'storage', 'carbon_footprint', 'display', 'image', 'energy_consumption', 'average_lifetime', 'carbon_rank', 'energy_rank', 'lifetime_rank', 'greenness_rank', 'overall', 'price', 'price_rank')
         qs_json = json.dumps(list(laptops_ranked), cls=DjangoJSONEncoder)
         return qs_json
 
