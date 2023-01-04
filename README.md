@@ -15,21 +15,20 @@ You must have installed: python3, and pip. And it's supposed you are using an ID
 
 (it can be pip3, it does not matter, just use pip3 instead of pip command)
 
-First, run the following:
-```
-pip install pipenv
-```
-
 Go to root folder (ITPM), then execute the following:
-
-```
-pipenv shell
-```
 
 Next, execute the following:
 ```
+pip install -r requirements.txt
 cd backend
+```
+Next, execute the following on MAC/Linux:
+```
 export DJANGO_SETTINGS_MODULE=backend.settings
+```
+Windows:
+```
+set DJANGO_SETTINGS_MODULE=backend.settings
 ```
 
 Run migrations
