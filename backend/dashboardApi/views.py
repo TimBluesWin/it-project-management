@@ -8,6 +8,7 @@ from dashboardApi.serializers import ComputerSerializer, LaptopSerializer
 from rest_framework import views, status, viewsets
 import abc
 from dashboardApi.models import Computer, Laptop
+from .services.computers import get_inactive_computers_by_model, get_incident_computers_by_model, get_avg_energy
 from .services.operationalratio import get_ratio
 from .services.average_lifetime import get_lifetime
 from .services.incident import get_incident, get_most_incident, get_not_working, get_working
@@ -85,6 +86,33 @@ class WorkingView(ThroughAPIBaseView):
         words = get_working(filters)
         return JsonResponse(words, safe=False)
 
+class InactiveBrandCountView(ThroughAPIBaseView):
+    def get(self, request):
+        filters = []
+        brand = self.request.query_params.get('vendor', None)
+        if brand is not None:
+            filters.append(Q(vendor__icontains=brand))
+        words = get_inactive_computers_by_model(filters)
+        return JsonResponse(words, safe=False)
+
+class IncidentBrandCountView(ThroughAPIBaseView):
+    def get(self, request):
+        filters = []
+        brand = self.request.query_params.get('vendor', None)
+        if brand is not None:
+            filters.append(Q(vendor__icontains=brand))
+        words = get_incident_computers_by_model(filters)
+        return JsonResponse(words, safe=False)
+
+class AVGEnergyView(ThroughAPIBaseView):
+    def get(self, request):
+        filters = []
+        brand = self.request.query_params.get('vendor', None)
+        if brand is not None:
+            filters.append(Q(vendor__icontains=brand))
+        words = get_avg_energy(filters)
+        return JsonResponse(words, safe=False)
+
 class CPUView(ThroughAPIBaseView):
     def get(self, request):
         words = get_cpu()
@@ -118,23 +146,23 @@ class OSView(ThroughAPIBaseView):
 class GreenLaptopView(ThroughAPIBaseView):
     def get(self, request):
         filters = []
-        memory = self.request.query_params.get('memory', None)
-        display = self.request.query_params.get('display', None)
-        processor = self.request.query_params.get('processor', None)
-        ops_sys = self.request.query_params.get('operating_system', None)
-        storage = self.request.query_params.get('storage', None)
-        graphics = self.request.query_params.get('graphics', None)
-        if memory is not None:
-            filters.append(Q(memory__icontains=memory))
-        if display is not None:
-            filters.append(Q(display__icontains=display))
-        if processor is not None:
-            filters.append(Q(processor__icontains=processor))
-        if ops_sys is not None:
-            filters.append(Q(ops_sys__icontains=ops_sys))
-        if storage is not None:
-            filters.append(Q(storage__icontains=storage))
-        if graphics is not None:
+        memory = self.request.GET.getlist('memory', None)
+        display = self.request.GET.getlist('display', None)
+        processor = self.request.GET.getlist('processor', None)
+        ops_sys = self.request.GET.getlist('operating_system', None)
+        storage = self.request.GET.getlist('storage', None)
+        graphics = self.request.GET.getlist('graphics', None)
+        if memory :
+            filters.append(Q(memory__in=memory))
+        if display :
+            filters.append(Q(display__in=display))
+        if processor :
+            filters.append(Q(processor__in=processor))
+        if ops_sys :
+            filters.append(Q(ops_sys__in=ops_sys))
+        if storage :
+            filters.append(Q(storage__in=storage))
+        if graphics :
             filters.append(Q(graphics__icontains=graphics))
         words = get_best_green_laptop(filters)
         return JsonResponse(words, safe=False)
@@ -142,48 +170,49 @@ class GreenLaptopView(ThroughAPIBaseView):
 class CheapestLaptopView(ThroughAPIBaseView):
     def get(self, request):
         filters = []
-        memory = self.request.query_params.get('memory', None)
-        display = self.request.query_params.get('display', None)
-        processor = self.request.query_params.get('processor', None)
-        ops_sys = self.request.query_params.get('operating_system', None)
-        storage = self.request.query_params.get('storage', None)
-        graphics = self.request.query_params.get('graphics', None)
-        if memory is not None:
-            filters.append(Q(memory__icontains=memory))
-        if display is not None:
-            filters.append(Q(display__icontains=display))
-        if processor is not None:
-            filters.append(Q(processor__icontains=processor))
-        if ops_sys is not None:
-            filters.append(Q(ops_sys__icontains=ops_sys))
-        if storage is not None:
-            filters.append(Q(storage__icontains=storage))
-        if graphics is not None:
-            filters.append(Q(graphics__icontains=graphics))
+        memory = self.request.GET.getlist('memory', None)
+        display = self.request.GET.getlist('display', None)
+        processor = self.request.GET.getlist('processor', None)
+        ops_sys = self.request.GET.getlist('operating_system', None)
+        storage = self.request.GET.getlist('storage', None)
+        graphics = self.request.GET.getlist('graphics', None)
+        if memory :
+            print(memory)
+            filters.append(Q(memory__in=memory))
+        if display :
+            filters.append(Q(display__in=display))
+        if processor :
+            filters.append(Q(processor__in=processor))
+        if ops_sys :
+            filters.append(Q(ops_sys__in=ops_sys))
+        if storage :
+            filters.append(Q(storage__in=storage))
+        if graphics :
+            filters.append(Q(graphics__in=graphics))
         words = get_cheapest(filters)
         return JsonResponse(words, safe=False)
 
 class OverallLaptopView(ThroughAPIBaseView):
     def get(self, request):
         filters = []
-        memory = self.request.query_params.get('memory', None)
-        display = self.request.query_params.get('display', None)
-        processor = self.request.query_params.get('processor', None)
-        ops_sys = self.request.query_params.get('operating_system', None)
-        storage = self.request.query_params.get('storage', None)
-        graphics = self.request.query_params.get('graphics', None)
-        if memory is not None:
-            filters.append(Q(memory__icontains=memory))
-        if display is not None:
-            filters.append(Q(display__icontains=display))
-        if processor is not None:
-            filters.append(Q(processor__icontains=processor))
-        if ops_sys is not None:
-            filters.append(Q(ops_sys__icontains=ops_sys))
-        if storage is not None:
-            filters.append(Q(storage__icontains=storage))
-        if graphics is not None:
-            filters.append(Q(graphics__icontains=graphics))
+        memory = self.request.GET.getlist('memory', None)
+        display = self.request.GET.getlist('display', None)
+        processor = self.request.GET.getlist('processor', None)
+        ops_sys = self.request.GET.getlist('operating_system', None)
+        storage = self.request.GET.getlist('storage', None)
+        graphics = self.request.GET.getlist('graphics', None)
+        if memory :
+            filters.append(Q(memory__in=memory))
+        if display :
+            filters.append(Q(display__in=display))
+        if processor :
+            filters.append(Q(processor__in=processor))
+        if ops_sys :
+            filters.append(Q(ops_sys__in=ops_sys))
+        if storage :
+            filters.append(Q(storage__in=storage))
+        if graphics :
+            filters.append(Q(graphics__in=graphics))
         words = get_best_overall(filters)
         return JsonResponse(words, safe=False)
         
@@ -194,22 +223,22 @@ class FilterLaptopView(generics.ListAPIView):
     def get_queryset(self):
         queryset = Laptop.objects.all()
         filters = []
-        memory = self.request.query_params.get('memory', None)
-        display = self.request.query_params.get('display', None)
-        processor = self.request.query_params.get('processor', None)
-        ops_sys = self.request.query_params.get('operating_system', None)
-        storage = self.request.query_params.get('storage', None)
-        graphics = self.request.query_params.get('graphics', None)
-        if memory is not None:
-            filters.append(Q(memory__icontains=memory))
-        if display is not None:
-            filters.append(Q(display__icontains=display))
-        if processor is not None:
-            filters.append(Q(processor__icontains=processor))
-        if ops_sys is not None:
-            filters.append(Q(ops_sys__icontains=ops_sys))
-        if storage is not None:
-            filters.append(Q(storage__icontains=storage))
-        if graphics is not None:
-            filters.append(Q(graphics__icontains=graphics))
+        memory = self.request.GET.getlist('memory', None)
+        display = self.request.GET.getlist('display', None)
+        processor = self.request.GET.getlist('processor', None)
+        ops_sys = self.request.GET.getlist('operating_system', None)
+        storage = self.request.GET.getlist('storage', None)
+        graphics = self.request.GET.getlist('graphics', None)
+        if memory :
+            filters.append(Q(memory__in=memory))
+        if display :
+            filters.append(Q(display__in=display))
+        if processor :
+            filters.append(Q(processor__in=processor))
+        if ops_sys :
+            filters.append(Q(ops_sys__in=ops_sys))
+        if storage :
+            filters.append(Q(storage__in=storage))
+        if graphics :
+            filters.append(Q(graphics__in=graphics))
         return queryset.filter(*filters)

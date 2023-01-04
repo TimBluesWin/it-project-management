@@ -7,7 +7,7 @@ from dashboardApi.views import CPUView, MemoryView, DisplayView, OSView, Storage
 from dashboardApi.views import ComputersViewSet, OperationalRatioView, LifetimeView, LaptopsViewSet
 from dashboardApi.views import LifetimeTopFiveView, IncidentView, MostIncidentView
 from dashboardApi.views import NotWorkingView, WorkingView
-from dashboardApi.views import GreenLaptopView
+from dashboardApi.views import GreenLaptopView, InactiveBrandCountView, IncidentBrandCountView, AVGEnergyView
 
 router = routers.DefaultRouter()                                                                       
 urlpatterns = router.urls
@@ -44,7 +44,10 @@ urlpatterns += [
     path('api/laptops/<uuid:pk>/', laptop_detail, name='laptop-detail'), #crud laptops
     path("api/operationalratio/", OperationalRatioView.as_view(), name="operationalratio"), #Get count of nonworking and working computers
     path("api/most-incident/", MostIncidentView.as_view(), name="most-incident"), #Most incidents by vendor and model
+    path("api/inactive-model/", InactiveBrandCountView.as_view(), name="inactive-model"), #Count inactive computers for each model when a brand is selected
+    path("api/incident-model/", IncidentBrandCountView.as_view(), name="incident-model"), #Number of incidents for each model when a brand is selected
     path("api/lifetime/", LifetimeView.as_view(), name="lifetime"), #shows models and lifetime
+    path("api/avg-energy-consumption/", AVGEnergyView.as_view(), name="avg-energy-consumption"), #avg energy consumption by brand and model
     path("api/lifetime-top-five/", LifetimeTopFiveView.as_view(), name="lifetime-top-five"), #Top 5 most lifetime
     path("api/not-working/", NotWorkingView.as_view(), name="not-working"), #Get count of not working computers by model
     path("api/incident/", IncidentView.as_view(), name="incident"), #Get all innactive computers data
