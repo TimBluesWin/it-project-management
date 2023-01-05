@@ -1,5 +1,11 @@
 import React from 'react'
 
-import { CCol, CRow } from '@coreui/react'
+const DetailInactiveComputers = () => {
+  return (
+    <>
+      <p>Lorem Ipsum Inactive</p>
+    </>
+  )
+}
 
-const DetailInactiveComputers = null
+export default DetailInactiveComputers
