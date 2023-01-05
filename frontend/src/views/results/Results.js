@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-import { CCol, CRow } from '@coreui/react'
+import { CCol, CRow, CButton } from '@coreui/react'
 
 import { RecommendedLaptop } from 'src/components/RecommendedLaptop'
 
@@ -31,6 +31,12 @@ const Results = () => {
     }
   }
 
+  const navigate = useNavigate()
+  const routeChange = () => {
+    let path = '/market/market-analysis'
+    navigate(path)
+  }
+
   return (
     <>
       <CRow>
@@ -44,6 +50,11 @@ const Results = () => {
           <RecommendedLaptop url={baseURLBoth} title="BEST OVERALL LAPTOP"></RecommendedLaptop>
         </CCol>
       </CRow>
+      <div className="d-grid gap-2 mt-3 mb-3">
+        <CButton color="success" onClick={routeChange}>
+          Search again!
+        </CButton>
+      </div>
     </>
   )
 }
