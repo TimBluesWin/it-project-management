@@ -54,20 +54,20 @@ export function RecommendedLaptop({ url, title }) {
             <CCardImage orientation="top" src={recommendedLaptop.image}></CCardImage>
             <CCardBody>
               <CCardTitle>{recommendedLaptop.name}</CCardTitle>
-              <CCardSubtitle>Price: {recommendedLaptop.price}</CCardSubtitle>
+              <CCardSubtitle>Price: {recommendedLaptop.price + ' Euro'}</CCardSubtitle>
               <CListGroup flush>
                 <CListGroupItem>
-                  Processor:
+                  Processor:&nbsp;
                   {recommendedLaptop.processor !== null ? recommendedLaptop.processor : '-'}
                 </CListGroupItem>
                 <CListGroupItem>
-                  Operating System:
+                  Operating System:&nbsp;
                   {recommendedLaptop.operating_system !== null
                     ? recommendedLaptop.operating_system
                     : '-'}
                 </CListGroupItem>
                 <CListGroupItem>
-                  Graphics Card:
+                  Graphics Card:&nbsp;
                   {recommendedLaptop.graphics !== null ? recommendedLaptop.graphics : '-'}
                 </CListGroupItem>
                 <CListGroupItem>
@@ -80,9 +80,21 @@ export function RecommendedLaptop({ url, title }) {
                   Display: {recommendedLaptop.display !== null ? recommendedLaptop.display : '-'}
                 </CListGroupItem>
                 <CListGroupItem>
-                  Energy Consumption:
+                  Carbon Footprint:&nbsp;
+                  {recommendedLaptop.carbon_footprint !== null
+                    ? recommendedLaptop.carbon_footprint + ' kgCO2e'
+                    : '-'}
+                </CListGroupItem>
+                <CListGroupItem>
+                  Energy Consumption:&nbsp;
                   {recommendedLaptop.energy_consumption !== null
-                    ? recommendedLaptop.energy_consumption
+                    ? recommendedLaptop.energy_consumption + ' kWh'
+                    : '-'}
+                </CListGroupItem>
+                <CListGroupItem>
+                  Average Lifetime:&nbsp;
+                  {recommendedLaptop.average_lifetime !== null
+                    ? recommendedLaptop.average_lifetime + ' years'
                     : '-'}
                 </CListGroupItem>
               </CListGroup>
