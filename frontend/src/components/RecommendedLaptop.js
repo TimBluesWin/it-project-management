@@ -40,53 +40,67 @@ export function RecommendedLaptop({ url, title }) {
       )
   }, [])
 
-  let recommendedLaptop = dataRecommended[0]
   if (error) {
     return <div>Error: {error.message}</div>
   } else if (!isLoaded) {
     return <div>Loading...</div>
   } else {
-    return (
-      <>
-        <CCard>
-          <CCardHeader>{title}</CCardHeader>
-          <CCardImage orientation="top" src={recommendedLaptop.image}></CCardImage>
-          <CCardBody>
-            <CCardTitle>{recommendedLaptop.name}</CCardTitle>
-            <CCardSubtitle>Price: {recommendedLaptop.price}</CCardSubtitle>
-            <CListGroup flush>
-              <CListGroupItem>
-                Processor:{recommendedLaptop.processor !== null ? recommendedLaptop.processor : '-'}
-              </CListGroupItem>
-              <CListGroupItem>
-                Operating System:
-                {recommendedLaptop.operating_system !== null
-                  ? recommendedLaptop.operating_system
-                  : '-'}
-              </CListGroupItem>
-              <CListGroupItem>
-                Graphics Card:
-                {recommendedLaptop.graphics !== null ? recommendedLaptop.graphics : '-'}
-              </CListGroupItem>
-              <CListGroupItem>
-                Memory: {recommendedLaptop.memory !== null ? recommendedLaptop.memory : '-'}
-              </CListGroupItem>
-              <CListGroupItem>
-                Storage: {recommendedLaptop.storage !== null ? recommendedLaptop.storage : '-'}
-              </CListGroupItem>
-              <CListGroupItem>
-                Display: {recommendedLaptop.display !== null ? recommendedLaptop.display : '-'}
-              </CListGroupItem>
-              <CListGroupItem>
-                Energy Consumption:
-                {recommendedLaptop.energy_consumption !== null
-                  ? recommendedLaptop.energy_consumption
-                  : '-'}
-              </CListGroupItem>
-            </CListGroup>
-          </CCardBody>
-        </CCard>
-      </>
-    )
+    if (dataRecommended.length > 0) {
+      let recommendedLaptop = dataRecommended[0]
+      return (
+        <>
+          <CCard>
+            <CCardHeader>{title}</CCardHeader>
+            <CCardImage orientation="top" src={recommendedLaptop.image}></CCardImage>
+            <CCardBody>
+              <CCardTitle>{recommendedLaptop.name}</CCardTitle>
+              <CCardSubtitle>Price: {recommendedLaptop.price}</CCardSubtitle>
+              <CListGroup flush>
+                <CListGroupItem>
+                  Processor:
+                  {recommendedLaptop.processor !== null ? recommendedLaptop.processor : '-'}
+                </CListGroupItem>
+                <CListGroupItem>
+                  Operating System:
+                  {recommendedLaptop.operating_system !== null
+                    ? recommendedLaptop.operating_system
+                    : '-'}
+                </CListGroupItem>
+                <CListGroupItem>
+                  Graphics Card:
+                  {recommendedLaptop.graphics !== null ? recommendedLaptop.graphics : '-'}
+                </CListGroupItem>
+                <CListGroupItem>
+                  Memory: {recommendedLaptop.memory !== null ? recommendedLaptop.memory : '-'}
+                </CListGroupItem>
+                <CListGroupItem>
+                  Storage: {recommendedLaptop.storage !== null ? recommendedLaptop.storage : '-'}
+                </CListGroupItem>
+                <CListGroupItem>
+                  Display: {recommendedLaptop.display !== null ? recommendedLaptop.display : '-'}
+                </CListGroupItem>
+                <CListGroupItem>
+                  Energy Consumption:
+                  {recommendedLaptop.energy_consumption !== null
+                    ? recommendedLaptop.energy_consumption
+                    : '-'}
+                </CListGroupItem>
+              </CListGroup>
+            </CCardBody>
+          </CCard>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <CCard>
+            <CCardHeader>{title}</CCardHeader>
+            <CCardBody>
+              <CCardTitle>Sorry, no suitable laptop is found.</CCardTitle>
+            </CCardBody>
+          </CCard>
+        </>
+      )
+    }
   }
 }
