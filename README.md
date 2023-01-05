@@ -15,6 +15,14 @@ You must have installed: python3, and pip. And it's supposed you are using an ID
 
 (it can be pip3, it does not matter, just use pip3 instead of pip command)
 
+Note: when you install Python, make sure you have the option "Add Python to environment variables" ticked.
+This allows us to use the command "python" and "pip" directly from the command line, instead of having to specify the full path.
+If you haven't ticked that option, follow these steps:
+1. Run the installer that you used to install Python
+2. On the "Optional Features" page, make sure "pip" is ticked. Click "Next"
+3. On the "Advanced Options" page, make sure the option "Add Python to environment variables" ticked.
+4. Click "Install"
+
 Go to root folder (ITPM), then execute the following:
 
 Next, execute the following:
@@ -54,6 +62,15 @@ There are scheduled tasks for updating the data once a week. These processes are
 ```
 celery -A backend worker -l info
 celery -A backend beat -l info
+```
+
+## Deployment of frontend
+
+From ITPM/backend, execute the following
+```
+cd ../frontend
+npm install
+npm start
 ```
 
 ## (Possible) Future implementation
