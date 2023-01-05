@@ -159,7 +159,7 @@ class GreenLaptopView(ThroughAPIBaseView):
         if processor :
             filters.append(Q(processor__in=processor))
         if ops_sys :
-            filters.append(Q(ops_sys__in=ops_sys))
+            filters.append(Q(operating_system__in=ops_sys))
         if storage :
             filters.append(Q(storage__in=storage))
         if graphics :
@@ -184,7 +184,7 @@ class CheapestLaptopView(ThroughAPIBaseView):
         if processor :
             filters.append(Q(processor__in=processor))
         if ops_sys :
-            filters.append(Q(ops_sys__in=ops_sys))
+            filters.append(Q(operating_system__in=ops_sys))
         if storage :
             filters.append(Q(storage__in=storage))
         if graphics :
@@ -208,7 +208,7 @@ class OverallLaptopView(ThroughAPIBaseView):
         if processor :
             filters.append(Q(processor__in=processor))
         if ops_sys :
-            filters.append(Q(ops_sys__in=ops_sys))
+            filters.append(Q(operating_system__in=ops_sys))
         if storage :
             filters.append(Q(storage__in=storage))
         if graphics :
