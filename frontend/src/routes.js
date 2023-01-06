@@ -15,19 +15,23 @@ const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/details/detail-lifetime', name: 'DetailLifetime', element: DetailLifetime },
+  { path: '/details/detail-lifetime', name: 'Detail of Average Lifetime', element: DetailLifetime },
   {
     path: '/details/detail-energy-consumption',
-    name: 'DetailEnergyConsumption',
+    name: 'Detail of Computer Energy Consumption',
     element: DetailEnergyConsumption,
   },
-  { path: '/details/detail-not-working', name: 'DetailNotWorking', element: DetailNotWorking },
+  {
+    path: '/details/detail-not-working',
+    name: 'Detail of Not Working Computers',
+    element: DetailNotWorking,
+  },
   {
     path: '/details/detail-inactive-computers',
-    name: 'DetailInactiveComputers',
+    name: 'Detail of Inactive Computers',
     element: DetailInactiveComputers,
   },
-  { path: '/market/market-analysis', name: 'MarketAnalyis', element: MarketAnalyis },
+  { path: '/market/market-analysis', name: 'Market Analysis', element: MarketAnalyis },
   {
     path: '/results/results',
     name: 'Results',
