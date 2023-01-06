@@ -24,6 +24,7 @@ export function AnalysisResult({ urlPart, title }) {
           let resultArray = JSON.parse(result)
           setIsLoaded(true)
           setDataAnalysis(resultArray)
+          setTableData(resultArray)
         },
         (error) => {
           setIsLoaded(true)
@@ -36,7 +37,8 @@ export function AnalysisResult({ urlPart, title }) {
     setBrand(e.target.value)
     console.log(e)
     let searchData = dataAnalysis.filter((item) => {
-      if (item.brand.toString().toLowerCase().includes(e.target.value.toLowerCase())) {
+      if (item.vendor.toString().toLowerCase().includes(e.target.value.toLowerCase())) {
+        console.log(item)
         return item
       }
     })
@@ -49,19 +51,8 @@ export function AnalysisResult({ urlPart, title }) {
       selector: 'model',
     },
     {
-      name: (
-        <div>
-          Brand
-          <input
-            type="text"
-            placeholder="Filter by brand"
-            value={brand}
-            onChange={(e) => onChange(e)}
-            style={{ width: '80%' }}
-          />
-        </div>
-      ),
-      selector: 'brand',
+      name: 'Brand',
+      selector: 'vendor',
     },
     {
       name: 'Count',
@@ -69,21 +60,23 @@ export function AnalysisResult({ urlPart, title }) {
     },
   ]
 
-  let data = []
-  for (let i = 0; i < dataAnalysis.length; i++) {
-    let datum = new Object()
-    datum.model = dataAnalysis[i].model
-    datum.brand = dataAnalysis[i].vendor
-    datum.count = dataAnalysis[i].count
-    data.push(datum)
-  }
-
   useEffect(() => {}, [tableData])
   if (error) {
     return <div>Error: {error.message}</div>
   } else if (!isLoaded) {
     return <div>Loading...</div>
   } else {
-    return <DataTable columns={columns} data={data} pagination={20} defaultSortField="model" />
+    return (
+      <>
+        <input
+          type="text"
+          placeholder="Filter by brand"
+          value={brand}
+          onChange={(e) => onChange(e)}
+          style={{ width: '80%' }}
+        />
+        <DataTable columns={columns} data={tableData} pagination={20} defaultSortField="model" />
+      </>
+    )
   }
 }

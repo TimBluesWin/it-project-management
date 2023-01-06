@@ -1,9 +1,11 @@
 import React from 'react'
 
+import { AnalysisResult } from 'src/components/Analysis'
+
 const DetailInactiveComputers = () => {
   return (
     <>
-      <p>Lorem Ipsum Inactive</p>
+      <AnalysisResult urlPart="inactive-model" title="Inactive Models"></AnalysisResult>
     </>
   )
 }

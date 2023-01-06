@@ -14,7 +14,7 @@ class ComputerAPI():
         return qs_json
     
     def inactive_computers_by_model(self, filters):
-        qs = Computer.objects.filter(*filters, incident_state = "Incident").values('model').annotate(count=Count('pk')).order_by()
+        qs = Computer.objects.filter(*filters, incident_state = "Incident").values('model', 'vendor').annotate(count=Count('pk')).order_by()
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
     
