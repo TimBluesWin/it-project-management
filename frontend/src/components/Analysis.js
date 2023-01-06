@@ -73,7 +73,7 @@ export function AnalysisResult({ urlPart, title }) {
           placeholder="Filter by brand"
           value={brand}
           onChange={(e) => onChange(e)}
-          style={{ width: '80%' }}
+          className="mb-3 form-control"
         />
         <DataTable columns={columns} data={tableData} pagination={20} defaultSortField="model" />
       </>
