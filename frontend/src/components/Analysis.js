@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 import PropTypes from 'prop-types'
 
-export function AnalysisResult({ urlPart, title }) {
+export function AnalysisResult({ urlPart, title, finalColumn, selector }) {
   AnalysisResult.propTypes = {
     urlPart: PropTypes.string,
     title: PropTypes.string,
+    finalColumn: PropTypes.string,
+    selector: PropTypes.string,
   }
 
   const [error, setError] = useState(null)
@@ -55,8 +57,8 @@ export function AnalysisResult({ urlPart, title }) {
       selector: 'vendor',
     },
     {
-      name: 'Count',
-      selector: 'count',
+      name: finalColumn,
+      selector: selector,
     },
   ]
 

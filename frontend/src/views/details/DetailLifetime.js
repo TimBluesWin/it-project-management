@@ -1,9 +1,16 @@
 import React from 'react'
 
+import { AnalysisResult } from 'src/components/Analysis'
+
 const DetailLifetime = () => {
   return (
     <>
-      <p>Lorem Ipsum Lifetime</p>
+      <AnalysisResult
+        urlPart="lifetime-model"
+        title="Average Lifetime by Model"
+        finalColumn="Average Lifetime (Years)"
+        selector="avg_life"
+      ></AnalysisResult>
     </>
   )
 }

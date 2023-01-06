@@ -8,6 +8,7 @@ import {
   FetchLifetime,
   FetchNotWorking,
   FetchIssues,
+  FetchEnergy,
 } from 'src/components/FetchFromAPI'
 
 const Dashboard = () => {
@@ -29,6 +30,9 @@ const Dashboard = () => {
           <FetchLifetime />
         </CCol>
       </CRow>
+      <div>
+        <FetchEnergy />
+      </div>
     </>
   )
 }

@@ -106,6 +106,8 @@ export function FetchLifetime() {
     },
   }
 
+  const navigate = useNavigate()
+
   let finalDataLifetime = [['Model', 'Lifetime']]
   for (let i = 0; i < dataLifetime.length; i++) {
     let brandAndModel = dataLifetime[i].vendor
@@ -125,6 +127,15 @@ export function FetchLifetime() {
         height="400px"
         data={finalDataLifetime}
         options={optionsAverageLifetime}
+        chartEvents={[
+          {
+            eventName: 'select',
+            callback: () => {
+              let path = '/details/detail-lifetime'
+              navigate(path)
+            },
+          },
+        ]}
       />
     )
   }
@@ -165,6 +176,8 @@ export function FetchIssues() {
     },
   }
 
+  const navigate = useNavigate()
+
   let finalDataIssues = [['Model', 'Issues']]
   for (let i = 0; i < dataIssues.length; i++) {
     let brandAndModel = dataIssues[i].vendor
@@ -184,6 +197,15 @@ export function FetchIssues() {
         height="400px"
         data={finalDataIssues}
         options={optionsModelIssues}
+        chartEvents={[
+          {
+            eventName: 'select',
+            callback: () => {
+              let path = '/details/detail-inactive-computers'
+              navigate(path)
+            },
+          },
+        ]}
       />
     )
   }
@@ -238,6 +260,76 @@ export function FetchNotWorking() {
         height="400px"
         data={finalDataNotWorking}
         options={optionsNotWorkingModels}
+      />
+    )
+  }
+}
+
+export function FetchEnergy() {
+  const [error, setError] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [dataEnergy, setDataEnergy] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/avg-energy-consumption')
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          let resultArray = JSON.parse(result)
+          setIsLoaded(true)
+          setDataEnergy(resultArray)
+        },
+        (error) => {
+          setIsLoaded(true)
+          setError(error)
+        },
+      )
+  }, [])
+  const optionsModelEnergy = {
+    title: 'Energy consumption by brand (KwH)',
+    hAxis: {
+      title: 'Brand',
+    },
+    vAxis: {
+      title: 'Energy consumption',
+    },
+    backgroundColor: 'transparent',
+    titleTextStyle: {
+      fontSize: 25,
+      bold: true,
+    },
+  }
+
+  const navigate = useNavigate()
+
+  let finalDataEnergy = [['Model', 'Energy']]
+  for (let i = 0; i < dataEnergy.length; i++) {
+    let brandAndModel = dataEnergy[i].vendor
+    let energy = parseFloat(dataEnergy[i].energy_consumption__avg)
+    let brandEnergy = new Array(brandAndModel, energy)
+    finalDataEnergy.push(brandEnergy)
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>
+  } else if (!isLoaded) {
+    return <div>Loading...</div>
+  } else {
+    return (
+      <Chart
+        chartType="ColumnChart"
+        width="100%"
+        height="400px"
+        data={finalDataEnergy}
+        options={optionsModelEnergy}
+        chartEvents={[
+          {
+            eventName: 'select',
+            callback: () => {
+              let path = '/details/detail-energy-consumption'
+              navigate(path)
+            },
+          },
+        ]}
       />
     )
   }
