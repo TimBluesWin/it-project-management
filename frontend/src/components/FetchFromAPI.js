@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 import { Chart } from 'react-google-charts'
 
 export function FetchLifecycle() {
@@ -38,6 +40,7 @@ export function FetchLifecycle() {
     ['Active', dataActiveComputers.active],
     ['Inactive', dataActiveComputers.inactive],
   ]
+  const navigate = useNavigate()
   if (error) {
     return <div>Error: {error.message}</div>
   } else if (!isLoaded) {
@@ -54,7 +57,8 @@ export function FetchLifecycle() {
           {
             eventName: 'select',
             callback: () => {
-              console.warn('Chart is clicked!')
+              let path = '/details/detail-inactive-computers'
+              navigate(path)
             },
           },
         ]}
