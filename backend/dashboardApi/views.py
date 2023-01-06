@@ -8,9 +8,9 @@ from dashboardApi.serializers import ComputerSerializer, LaptopSerializer
 from rest_framework import views, status, viewsets
 import abc
 from dashboardApi.models import Computer, Laptop
-from .services.computers import get_inactive_computers_by_model, get_incident_computers_by_model, get_avg_energy
+from .services.computers import get_inactive_computers_by_model, get_incident_computers_by_model, get_avg_energy, get_brands, get_avg_energy_model
 from .services.operationalratio import get_ratio
-from .services.average_lifetime import get_lifetime
+from .services.average_lifetime import get_lifetime, get_lifetime_model
 from .services.incident import get_incident, get_most_incident, get_not_working, get_working
 from .services.laptops import get_best_overall, get_cheapest, get_cpu, get_display, get_graphics, get_memory, get_os, get_storage, get_best_green_laptop
 
@@ -51,6 +51,11 @@ class LifetimeView(ThroughAPIBaseView):
         if brand is not None:
             filters.append(Q(vendor__icontains=brand))
         words = get_lifetime(filters)
+        return JsonResponse(words, safe=False)
+
+class LifetimeModelView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_lifetime_model()
         return JsonResponse(words, safe=False)
 
 class LifetimeTopFiveView(ThroughAPIBaseView):
@@ -113,6 +118,11 @@ class AVGEnergyView(ThroughAPIBaseView):
         words = get_avg_energy(filters)
         return JsonResponse(words, safe=False)
 
+class AVGEnergyModelView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_avg_energy_model()
+        return JsonResponse(words, safe=False)
+
 class CPUView(ThroughAPIBaseView):
     def get(self, request):
         words = get_cpu()
@@ -141,6 +151,11 @@ class MemoryView(ThroughAPIBaseView):
 class OSView(ThroughAPIBaseView):
     def get(self, request):
         words = get_os()
+        return JsonResponse(words, safe=False)
+
+class BrandView(ThroughAPIBaseView):
+    def get(self, request):
+        words = get_brands()
         return JsonResponse(words, safe=False)
 
 class GreenLaptopView(ThroughAPIBaseView):

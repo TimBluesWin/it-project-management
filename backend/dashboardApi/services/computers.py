@@ -14,7 +14,12 @@ class ComputerAPI():
         return qs_json
     
     def inactive_computers_by_model(self, filters):
-        qs = Computer.objects.filter(*filters, incident_state = "Incident").values('model', 'vendor').annotate(count=Count('pk')).order_by()
+        qs = Computer.objects.filter(*filters, incident_state = "Incident").values('vendor','model').annotate(count=Count('pk')).order_by()
+        qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
+        return qs_json
+    
+    def brand(self):
+        qs = Computer.objects.all().values('vendor').distinct()
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
     
@@ -26,8 +31,13 @@ class ComputerAPI():
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
     
+    def avg_energy_model(self):
+        qs = Computer.objects.all().values('vendor','model').annotate(Avg('energy_consumption')).distinct().order_by('energy_consumption')
+        qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
+        return qs_json
+    
     def incident_computers_by_model(self, filters):
-        qs = Computer.objects.filter(*filters).values('model').annotate(innactive=Count(Case(When(incident_state='Incident', then=1),output_field=IntegerField(),)),count=Count('pk')).order_by('-innactive')
+        qs = Computer.objects.filter(*filters).values('model').annotate(inactive=Count(Case(When(incident_state='Incident', then=1),output_field=IntegerField(),)),count=Count('pk')).order_by('-inactive')
         qs_json = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return qs_json
 
@@ -46,3 +56,11 @@ def get_incident_computers_by_model(filters):
 def get_avg_energy(filters):
     api = ComputerAPI()
     return api.avg_energy(filters)
+
+def get_brands():
+    api = ComputerAPI()
+    return api.brand()
+
+def get_avg_energy_model():
+    api = ComputerAPI()
+    return api.avg_energy_model()

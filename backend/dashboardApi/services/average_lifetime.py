@@ -20,7 +20,19 @@ class LifetimeAPI():
             qs = qs[:limit]
         serialized_q = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return serialized_q
+    
+    def get_lifetime_model(self, limit=None):
+        today = datetime.datetime.now().strftime ("%Y-%m-%d")
+        qs = Computer.objects.exclude(install__isnull=True).values('vendor','model').annotate(avg_life=Avg(F('install') - (today), output_field=fields.TextField(), function='ABS')).order_by('-avg_life')
+        if limit is not None:
+            qs = qs[:limit]
+        serialized_q = json.dumps(list(qs), cls=DjangoJSONEncoder)
+        return serialized_q
 
 def get_lifetime(filters, limit=None):
     api = LifetimeAPI()
     return api.search(filters, limit)
+
+def get_lifetime_model(limit=None):
+    api = LifetimeAPI()
+    return api.get_lifetime_model(limit)
