@@ -50,15 +50,15 @@ export function AnalysisResult({ urlPart, title, finalColumn, selector }) {
   const columns = [
     {
       name: 'Model',
-      selector: 'model',
+      selector: (row) => row.model,
     },
     {
       name: 'Brand',
-      selector: 'vendor',
+      selector: (row) => row.vendor,
     },
     {
       name: finalColumn,
-      selector: selector,
+      selector: (row) => row[selector],
     },
   ]
 
