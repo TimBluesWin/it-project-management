@@ -248,6 +248,9 @@ export function FetchNotWorking() {
     let brandNotWorking = new Array(brandAndModel, numberNotWorking)
     finalDataNotWorking.push(brandNotWorking)
   }
+
+  const navigate = useNavigate()
+
   if (error) {
     return <div>Error: {error.message}</div>
   } else if (!isLoaded) {
@@ -260,6 +263,15 @@ export function FetchNotWorking() {
         height="400px"
         data={finalDataNotWorking}
         options={optionsNotWorkingModels}
+        chartEvents={[
+          {
+            eventName: 'select',
+            callback: () => {
+              let path = '/details/detail-not-working'
+              navigate(path)
+            },
+          },
+        ]}
       />
     )
   }

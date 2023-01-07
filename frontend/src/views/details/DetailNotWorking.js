@@ -1,9 +1,16 @@
 import React from 'react'
 
+import { AnalysisResult } from 'src/components/Analysis'
+
 const DetailNotWorking = () => {
   return (
     <>
-      <p>Lorem Ipsum Not Working</p>
+      <AnalysisResult
+        urlPart="not-working-model"
+        title="Not Working Models by Model"
+        finalColumn="Count"
+        selector="dcount"
+      ></AnalysisResult>
     </>
   )
 }
