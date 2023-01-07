@@ -88,9 +88,9 @@ export function FetchLifetime() {
       )
   }, [])
   const optionsAverageLifetime = {
-    title: 'Average Lifetime In Years (Top 5 models)',
+    title: 'Average Lifetime In Years (Top 5 brands)',
     hAxis: {
-      title: 'Model',
+      title: 'Brand',
     },
     vAxis: {
       title: 'Lifetime (years)',
@@ -162,9 +162,9 @@ export function FetchIssues() {
       )
   }, [])
   const optionsModelIssues = {
-    title: 'Top 5 Number of Issues by model',
+    title: 'Top 5 Number of Issues by Brand',
     hAxis: {
-      title: 'Model',
+      title: 'Brand',
     },
     vAxis: {
       title: 'Number of Issues',
@@ -232,7 +232,7 @@ export function FetchNotWorking() {
       )
   }, [])
   const optionsNotWorkingModels = {
-    title: 'Not Working Models',
+    title: 'Not Working Brands',
     is3D: false,
     backgroundColor: 'transparent',
     titleTextStyle: {
