@@ -25,7 +25,12 @@ class OperationalRatioAPI():
         return serialized_q
 
     def not_working(self):
-        qs = Computer.objects.filter(Q(deployment_state="Maintenance") | Q(deployment_state="Repair")).values('vendor').annotate(dcount=Count('vendor')).order_by('dcount')
+        qs = Computer.objects.filter(Q(deployment_state="Maintenance") | Q(deployment_state="Repair")).values('vendor').annotate(dcount=Count('vendor')).order_by('-dcount')
+        serialized_q = json.dumps(list(qs), cls=DjangoJSONEncoder)
+        return serialized_q
+
+    def not_working_model(self):
+        qs = Computer.objects.filter(Q(deployment_state="Maintenance") | Q(deployment_state="Repair")).values('vendor', 'model').annotate(dcount=Count('model')).order_by('-dcount')
         serialized_q = json.dumps(list(qs), cls=DjangoJSONEncoder)
         return serialized_q
 
@@ -44,3 +49,7 @@ def get_not_working():
 def get_working(filters):
     api = OperationalRatioAPI()
     return api.get_working(filters)
+
+def get_not_working_model():
+    api = OperationalRatioAPI()
+    return api.not_working_model()

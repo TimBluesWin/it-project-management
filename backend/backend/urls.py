@@ -7,7 +7,7 @@ from dashboardApi.views import CPUView, MemoryView, DisplayView, OSView, Storage
 from dashboardApi.views import ComputersViewSet, OperationalRatioView, LifetimeView, LaptopsViewSet
 from dashboardApi.views import LifetimeTopFiveView, IncidentView, MostIncidentView, AVGEnergyModelView
 from dashboardApi.views import NotWorkingView, WorkingView
-from dashboardApi.views import GreenLaptopView, InactiveBrandCountView, IncidentBrandCountView, AVGEnergyView
+from dashboardApi.views import GreenLaptopView, InactiveBrandCountView, IncidentBrandCountView, AVGEnergyView,NotWorkingModelView
 
 router = routers.DefaultRouter()                                                                       
 urlpatterns = router.urls
@@ -52,6 +52,7 @@ urlpatterns += [
     path("api/avg-energy-consumption-model/", AVGEnergyModelView.as_view(), name="avg-energy-consumption-model"), #avg energy consumption by brand and model
     path("api/lifetime-top-five/", LifetimeTopFiveView.as_view(), name="lifetime-top-five"), #Top 5 most lifetime
     path("api/not-working/", NotWorkingView.as_view(), name="not-working"), #Get count of not working computers by model
+    path("api/not-working-model/", NotWorkingModelView.as_view(), name="not-working-model"), #Get count of not working computers by model
     path("api/incident/", IncidentView.as_view(), name="incident"), #Get all innactive computers data
     path("api/working/", WorkingView.as_view(), name="working"), #Get all working computers data
     path("api/cpu/", CPUView.as_view(), name="cpu"), #Get possible components to filter
