@@ -50,16 +50,15 @@ pip install -r requirements.txt
 Run migrations
 (Note: Run lines one by one)
 
-Windows command
+Windows commands:
 ```
 set DJANGO_SETTINGS_MODULE=backend.settings
-```
 python manage.py makemigrations dashboardApi
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 ```
-```
+
 MAC/Linux commands:
 ```
 export DJANGO_SETTINGS_MODULE=backend.settings
