@@ -3,58 +3,82 @@
 
 In the repository, we develop the project for ITPM 2022-2023 for the University of Innsbruck.
 
-## Installation
+Guide used for initial configuration: https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react
 
-Guide used for configuration: https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react
-    
-## Deployment of backend
+For installation of the application only the following guide is necessary!
 
-Install required packages
+## Installation of software & packages
 
-You must have installed: python3, and pip. And it's supposed you are using an IDE (VS code)
+You must have installed: 
+- python 3.x (best the latest verision) and pip: https://www.python.org/downloads/
+- node.js (latest version): https://nodejs.org/en/download/
+- suggestion: use an IDE (e.g. VisualStudio Code): https://code.visualstudio.com/download
 
-(it can be pip3, it does not matter, just use pip3 instead of pip command)
-
-Note: when you install Python, make sure you have the option "Add Python to environment variables" ticked.
+Note: When you install Python the first time, make sure you have the option "Add Python to environment variables" ticked in the advanced install options.
 This allows us to use the command "python" and "pip" directly from the command line, instead of having to specify the full path.
+
 If you haven't ticked that option, follow these steps:
 1. Run the installer that you used to install Python
 2. On the "Optional Features" page, make sure "pip" is ticked. Click "Next"
 3. On the "Advanced Options" page, make sure the option "Add Python to environment variables" ticked.
 4. Click "Install"
 
-Go to root folder (ITPM), then execute the following:
+## Deployment of backend
 
-Next, execute the following:
+Note: Default is the pip command. It does not matter in case you have pip3. Just use pip3 instead of pip.
+
+Get the repository files to the local device (e.g. using VS Code "Source Control" or direct download from GitHub)
+
+Use the Windows Terminal or the Terminal in Visual Studio Code for the following commands.
+
+Install the virtual environment
 ```
-pip install -r requirements.txt
+pip install pipenv
+```
+
+Start virtual environment: Navigate to the repository root folder (ITPM), then execute the following:
+```
+pipenv shell
+```
+
+Initialize DJANGO settings: execute the following
+```
 cd backend
-```
-Next, execute the following on MAC/Linux:
-```
-export DJANGO_SETTINGS_MODULE=backend.settings
-```
-Windows:
-```
-set DJANGO_SETTINGS_MODULE=backend.settings
+pip install -r requirements.txt
 ```
 
 Run migrations
+(Note: Run lines one by one)
 
-
+Windows command
 ```
+set DJANGO_SETTINGS_MODULE=backend.settings
+```
+python manage.py makemigrations dashboardApi
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
+```
+MAC/Linux commands:
+```
+export DJANGO_SETTINGS_MODULE=backend.settings
 python3 manage.py makemigrations dashboardApi
 python3 manage.py migrate
 python3 manage.py createsuperuser
 python3 manage.py runserver
 ```
-If it's working, you can access to http://127.0.0.1:8000/admin/
 
-Setup all data into the DB, please wait until it ends:
+If it's working you can access  http://127.0.0.1:8000/admin/
+
+
+Stop the server to run the data migration (CTRL+C)
+
+Setup all data into the DB, please wait until it ends (for Linux/MAC use "export" for "set" and "python3" for "python":
 
 ```
-export DJANGO_SETTINGS_MODULE=backend.settings
-python3 setupData.py
+set DJANGO_SETTINGS_MODULE=backend.settings
+python setupData.py
 ```
 
 There are scheduled tasks for updating the data once a week. These processes are also done in the last command, so don't run it, this is just for your information. You can use them using the following commands: (Control + C) to stop them
