@@ -1,4 +1,6 @@
-import django, os, csv
+import os, csv
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+import django
 from datetime import datetime
 django.setup()
 from dashboardApi.models import Computer
