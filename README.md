@@ -48,7 +48,7 @@ pip install -r requirements.txt
 ```
 
 Run migrations
-(Note: Run lines one by one)
+(Note: Run line by line)
 
 Windows commands:
 ```
@@ -58,7 +58,6 @@ python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 ```
-
 MAC/Linux commands:
 ```
 export DJANGO_SETTINGS_MODULE=backend.settings
@@ -73,11 +72,18 @@ If it's working you can access  http://127.0.0.1:8000/admin/
 
 Stop the server to run the data migration (CTRL+C)
 
-Setup all data into the DB, please wait until it ends (for Linux/MAC use "export" for "set" and "python3" for "python":
 
+Setup all data into the DB, please wait until it ends:
+
+Windows commands:
 ```
 set DJANGO_SETTINGS_MODULE=backend.settings
 python setupData.py
+```
+MAC/Linux commands:
+```
+export DJANGO_SETTINGS_MODULE=backend.settings
+python3 setupData.py
 ```
 
 There are scheduled tasks for updating the data once a week. These processes are also done in the last command, so don't run it, this is just for your information. You can use them using the following commands: (Control + C) to stop them
