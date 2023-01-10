@@ -1,5 +1,5 @@
 
-# ITPM
+# ITPM - Greenscout
 
 In the repository, we develop the project for ITPM 2022-2023 for the University of Innsbruck.
 
@@ -7,7 +7,7 @@ Guide used for initial configuration: https://www.digitalocean.com/community/tut
 
 For installation of the application only the following guide is necessary!
 
-## Installation of software & packages
+## Installation of Software & Packages
 
 You must have installed: 
 - python 3.x (best the latest verision) and pip: https://www.python.org/downloads/
@@ -23,7 +23,7 @@ If you haven't ticked that option, follow these steps:
 3. On the "Advanced Options" page, make sure the option "Add Python to environment variables" ticked.
 4. Click "Install"
 
-## Deployment of backend
+## Deployment of Backend
 
 Note: Default is the pip command. It does not matter in case you have pip3. Just use pip3 instead of pip.
 
@@ -93,16 +93,19 @@ celery -A backend worker -l info
 celery -A backend beat -l info
 ```
 
-## Deployment of frontend
+## Deployment of Frontend
 
-From ITPM/backend, execute the following
+Open another terminal window, don't close the other one: The backend server must be up and running for the frontend.
+
+Change the directory to ITPM/backend.
+In case you are in .../ITPM/backend, execute the following:
 ```
 cd ../frontend
 npm install
 npm start
 ```
 
-## (Possible) Future implementation
+## (Potential) Future Implementation
 
  - [Frontend React](https://github.com/coreui/coreui-free-react-admin-template)
  - [Django Back Office](https://github.com/MaferMazu/django-backoffice)
