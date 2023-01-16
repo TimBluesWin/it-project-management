@@ -137,9 +137,11 @@ def thirdSetup():
                 try:
                     co2 = filter2.split("  ")[0]
                     Laptop.objects.filter(name__icontains = name).update(carbon_footprint = co2, energy_consumption = filter4, average_lifetime = 4)
+                    Computer.objects.filter(name__icontains = name).update(energy_consumption = filter4)
                 except:
                     co2 = filter2.split(" ")[0]
                     Laptop.objects.filter(name__icontains = name).update(carbon_footprint = co2, energy_consumption = filter4, average_lifetime = 4)
+                    Computer.objects.filter(name__icontains = name).update(energy_consumption = filter4)
             except:
                 continue
         except FileNotFoundError:
