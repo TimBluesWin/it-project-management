@@ -166,12 +166,18 @@ class BrandView(ThroughAPIBaseView):
 class GreenLaptopView(ThroughAPIBaseView):
     def get(self, request):
         filters = []
+        min_price = self.request.GET.get('min_price', None)
+        max_price = self.request.GET.get('max_price', None)
         memory = self.request.GET.getlist('memory', None)
         display = self.request.GET.getlist('display', None)
         processor = self.request.GET.getlist('processor', None)
         ops_sys = self.request.GET.getlist('operating_system', None)
         storage = self.request.GET.getlist('storage', None)
         graphics = self.request.GET.getlist('graphics', None)
+        if min_price:
+            filters.append(Q(price__gte=min_price))
+        if max_price:
+            filters.append(Q(price__lte=max_price))
         if memory :
             filters.append(Q(memory__in=memory))
         if display :
@@ -190,12 +196,18 @@ class GreenLaptopView(ThroughAPIBaseView):
 class CheapestLaptopView(ThroughAPIBaseView):
     def get(self, request):
         filters = []
+        min_price = self.request.GET.get('min_price', None)
+        max_price = self.request.GET.get('max_price', None)
         memory = self.request.GET.getlist('memory', None)
         display = self.request.GET.getlist('display', None)
         processor = self.request.GET.getlist('processor', None)
         ops_sys = self.request.GET.getlist('operating_system', None)
         storage = self.request.GET.getlist('storage', None)
         graphics = self.request.GET.getlist('graphics', None)
+        if min_price:
+            filters.append(Q(price__gte=min_price))
+        if max_price:
+            filters.append(Q(price__lte=max_price))
         if memory :
             print(memory)
             filters.append(Q(memory__in=memory))
@@ -215,12 +227,18 @@ class CheapestLaptopView(ThroughAPIBaseView):
 class OverallLaptopView(ThroughAPIBaseView):
     def get(self, request):
         filters = []
+        min_price = self.request.GET.get('min_price', None)
+        max_price = self.request.GET.get('max_price', None)
         memory = self.request.GET.getlist('memory', None)
         display = self.request.GET.getlist('display', None)
         processor = self.request.GET.getlist('processor', None)
         ops_sys = self.request.GET.getlist('operating_system', None)
         storage = self.request.GET.getlist('storage', None)
         graphics = self.request.GET.getlist('graphics', None)
+        if min_price:
+            filters.append(Q(price__gte=min_price))
+        if max_price:
+            filters.append(Q(price__lte=max_price))
         if memory :
             filters.append(Q(memory__in=memory))
         if display :
